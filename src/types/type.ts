@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface IData {
   id: number; // 주문번호
   transaction_time: string; // 거래시간
@@ -5,4 +7,10 @@ export interface IData {
   customer_id: number; // 고객번호
   customer_name: string; // 고객이름
   currency: string; // 가격
+}
+
+export interface PaginationProps {
+  total: number;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
 }

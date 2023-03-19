@@ -10,8 +10,14 @@ import {
   Td,
   Tfoot,
 } from '@chakra-ui/react';
+import { useState } from 'react';
+import { LIMIT } from '../consts/pagination.consts';
+import Paginaton from '../components/Pagination/Pagination';
 
 function Admin() {
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * LIMIT;
+
   const { isLoading, isError, data, error } = useData();
 
   if (isLoading) {
@@ -38,7 +44,7 @@ function Admin() {
             </Tr>
           </Thead>
           <Tbody>
-            {data!.map((orderList) => (
+            {data!.slice(offset, offset + LIMIT).map((orderList) => (
               <Tr key={orderList.id}>
                 <Td>{orderList.id}</Td>
                 <Td>{orderList.transaction_time}</Td>
@@ -61,6 +67,7 @@ function Admin() {
           </Tfoot>
         </Table>
       </TableContainer>
+      <Paginaton total={data!.length} page={page} setPage={setPage}></Paginaton>
     </>
   );
 }
