@@ -10,16 +10,14 @@ export const handlers = [
   rest.get(orderApiUrls.ORDER, (req, res, ctx) => {
     const pageQueryString = req.url.searchParams.get(orderApiQueryKey.PAGE);
     const dateQueryString = req.url.searchParams.get(orderApiQueryKey.DATE);
-    const page = pageQueryString
-      ? Number(req.url.searchParams.get(orderApiQueryKey.PAGE))
-      : null;
+    const page = pageQueryString ? Number(pageQueryString) : null;
     const date = dateQueryString ? new Date(dateQueryString) : null;
 
     const filterByDate = (origin: typeof mockdata) =>
       date === null
         ? origin
-        : origin.filter((data) => {
-            const curDate = new Date(data.transaction_time);
+        : origin.filter(({ transaction_time }) => {
+            const curDate = new Date(transaction_time);
 
             return (
               curDate.getFullYear() === date.getFullYear() &&
