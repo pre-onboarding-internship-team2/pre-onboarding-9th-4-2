@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import {
-  fetchGetOrderList,
-  orderApiQueryKey,
-  PAGINATION_PER_PAGE,
-} from "../services/order";
+import { fetchGetOrderList, orderApiQueryKey } from "../services/order";
+import PaginationButtons from "./OrderTable.PaginationButtons";
+import Table from "./common/Table";
 
 export default function OrderTable() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const page = searchParams.get(orderApiQueryKey.PAGE);
   const date = searchParams.get(orderApiQueryKey.DATE);
   const { data, isSuccess } = useQuery(
@@ -25,51 +23,27 @@ export default function OrderTable() {
   if (isSuccess && !data) throw new Error("success query but no data");
   const { totalCount, orderList } = data!;
 
-  const getPageNumberArray = () => {
-    return Array(Math.floor(totalCount / PAGINATION_PER_PAGE))
-      .fill(0)
-      .map((_, i) => (i + 1).toString());
-  };
+  const bodyRows = orderList.map((row) => ({
+    ...row,
+    status: row.status ? "완료" : "처리필요",
+    key: row.id.toString(),
+  }));
+
+  const headerRows = [
+    "주문번호",
+    "거래시간",
+    "주문처리상태",
+    "고객번호",
+    "고객이름",
+    "가격",
+  ];
 
   return (
     <>
       {isSuccess ? (
         <>
-          <table>
-            <thead>
-              <tr>
-                {Object.keys(orderList[0]).map((key) => (
-                  <th key={key}>
-                    {key
-                      .replace("_", " ")
-                      .replace(/\b[a-z]/g, (c) => c.toUpperCase())}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {orderList.map((order) => (
-                <tr key={order.id}>
-                  {Object.values(order).map((value) => (
-                    <td key={order.id.toString() + value.toString()}>
-                      {value.toString()}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {getPageNumberArray().map((pageNumber) => (
-            <button
-              onClick={() => {
-                searchParams.set(orderApiQueryKey.PAGE, pageNumber);
-                setSearchParams(searchParams);
-              }}
-              key={`page ${pageNumber}`}
-            >
-              {pageNumber}
-            </button>
-          ))}
+          <Table headerRows={headerRows} bodyRows={bodyRows} />
+          <PaginationButtons totalCount={totalCount} />
         </>
       ) : (
         "fail"
