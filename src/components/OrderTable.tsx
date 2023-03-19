@@ -4,6 +4,7 @@ import {
   fetchGetOrderList,
   orderApiQueryKey,
   SortType,
+  StatusType,
 } from "../services/order";
 import PaginationButtons from "./OrderTable.PaginationButtons";
 import Table from "./common/Table";
@@ -13,10 +14,17 @@ export default function OrderTable() {
   const page = searchParams.get(orderApiQueryKey.PAGE);
   const date = searchParams.get(orderApiQueryKey.DATE);
   const sort = searchParams.get(orderApiQueryKey.SORT) as SortType;
+  const status = searchParams.get(orderApiQueryKey.STATUS) as StatusType;
 
   const { data, isSuccess } = useQuery(
-    ["order", page, date, sort],
-    () => fetchGetOrderList({ page, date, sort }),
+    ["order", page, date, sort, status],
+    () =>
+      fetchGetOrderList({
+        page,
+        date,
+        sort,
+        status,
+      }),
     {
       select: (res) => {
         const totalCount = res.headers["x-total-count"];
@@ -39,34 +47,53 @@ export default function OrderTable() {
     {
       title: "주문번호",
       callback: () => {
-        if (sort === "ID_DES") {
-          searchParams.set(orderApiQueryKey.SORT, "ID_ASC");
-          setSearchParams(searchParams);
-        } else if (sort === "ID_ASC") {
-          searchParams.delete(orderApiQueryKey.SORT);
-          setSearchParams(searchParams);
-        } else {
-          searchParams.set(orderApiQueryKey.SORT, "ID_DES");
-          setSearchParams(searchParams);
+        switch (sort) {
+          case "ID_DES":
+            searchParams.set(orderApiQueryKey.SORT, "ID_ASC");
+            break;
+          case "ID_ASC":
+            searchParams.delete(orderApiQueryKey.SORT);
+            break;
+          default:
+            searchParams.set(orderApiQueryKey.SORT, "ID_DES");
         }
+        setSearchParams(searchParams);
       },
     },
     {
       title: "거래시간",
       callback: () => {
-        if (sort === "TIME_DES") {
-          searchParams.set(orderApiQueryKey.SORT, "TIME_ASC");
-          setSearchParams(searchParams);
-        } else if (sort == "TIME_ASC") {
-          searchParams.delete(orderApiQueryKey.SORT);
-          setSearchParams(searchParams);
-        } else {
-          searchParams.set(orderApiQueryKey.SORT, "TIME_DES");
-          setSearchParams(searchParams);
+        switch (sort) {
+          case "TIME_DES":
+            searchParams.set(orderApiQueryKey.SORT, "TIME_ASC");
+            break;
+          case "TIME_ASC":
+            searchParams.delete(orderApiQueryKey.SORT);
+            break;
+          default:
+            searchParams.set(orderApiQueryKey.SORT, "TIME_DES");
         }
+        setSearchParams(searchParams);
       },
     },
-    { title: "주문처리상태" },
+    {
+      title: "주문처리상태",
+      callback: () => {
+        switch (status) {
+          case "FALSE":
+            searchParams.set(orderApiQueryKey.STATUS, "TRUE");
+            searchParams.delete(orderApiQueryKey.PAGE);
+            break;
+          case "TRUE":
+            searchParams.delete(orderApiQueryKey.STATUS);
+            break;
+          default:
+            searchParams.set(orderApiQueryKey.STATUS, "FALSE");
+            searchParams.delete(orderApiQueryKey.PAGE);
+        }
+        setSearchParams(searchParams);
+      },
+    },
     { title: "고객번호" },
     { title: "고객이름" },
     { title: "가격" },

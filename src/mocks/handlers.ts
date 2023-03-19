@@ -4,6 +4,7 @@ import {
   orderApiUrls,
   PAGINATION_PER_PAGE,
   SortType,
+  StatusType,
 } from "../services/order";
 import mockdata from "./mock_data.json";
 
@@ -11,9 +12,13 @@ export const handlers = [
   rest.get(orderApiUrls.ORDER, (req, res, ctx) => {
     const pageQueryString = req.url.searchParams.get(orderApiQueryKey.PAGE);
     const dateQueryString = req.url.searchParams.get(orderApiQueryKey.DATE);
-    const sort = req.url.searchParams.get(orderApiQueryKey.SORT) as SortType;
+
     const page = pageQueryString ? Number(pageQueryString) : null;
     const date = dateQueryString ? new Date(dateQueryString) : null;
+    const sort = req.url.searchParams.get(orderApiQueryKey.SORT) as SortType;
+    const status = req.url.searchParams.get(
+      orderApiQueryKey.STATUS
+    ) as StatusType;
 
     const filterByDate = (origin: typeof mockdata) =>
       date === null
@@ -55,7 +60,14 @@ export const handlers = [
           )
         : origin;
 
-    const convertedData = sortData(filterByDate(mockdata));
+    const filterByStatus = (origin: typeof mockdata) =>
+      status === "TRUE"
+        ? origin.filter(({ status }) => status)
+        : status === "FALSE"
+        ? origin.filter(({ status }) => !status)
+        : origin;
+
+    const convertedData = sortData(filterByStatus(filterByDate(mockdata)));
 
     if (convertedData.length <= 0) return res(ctx.status(404));
 
