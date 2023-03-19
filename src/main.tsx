@@ -5,9 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import initMocks from "./mocks";
 
-if (import.meta.env.DEV) {
-  await initMocks();
-}
+initMocks();
 
 const queryClient = new QueryClient({
   defaultOptions: {
