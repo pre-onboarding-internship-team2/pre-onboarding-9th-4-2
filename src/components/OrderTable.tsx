@@ -33,6 +33,7 @@ export default function OrderTable() {
         const orderList = res.data;
         return { totalCount, orderList };
       },
+      staleTime: 5000,
     }
   );
 
