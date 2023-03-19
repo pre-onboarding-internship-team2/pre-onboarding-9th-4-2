@@ -1,5 +1,14 @@
+import { Suspense } from "react";
+import OrderTable from "./components/OrderTable";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Suspense fallback={<div>loading</div>}>
+        <OrderTable />
+      </Suspense>
+    </>
+  );
 }
 
 export default App;
