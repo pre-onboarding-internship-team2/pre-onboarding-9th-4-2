@@ -1,7 +1,7 @@
-import { useQuery } from 'react-query';
-import { fetchData } from '../api/api';
 import { IData } from '../types/type';
-import isToday from '../utils/isToday';
+import { fetchData } from '@api/api';
+import { useQuery } from 'react-query';
+import isToday from '@utils/isToday';
 
 function useData() {
   const { isLoading, isError, data, error } = useQuery<IData[], Error>('switchone', fetchData);

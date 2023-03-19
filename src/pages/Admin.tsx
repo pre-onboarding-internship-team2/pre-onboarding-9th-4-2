@@ -1,4 +1,3 @@
-import useData from '../hooks/useData';
 import {
   TableContainer,
   Table,
@@ -11,8 +10,9 @@ import {
   Badge,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { LIMIT } from '../consts/pagination.consts';
-import Paginaton from '../components/Pagination';
+import { LIMIT } from '@consts/pagination.consts';
+import useData from '@hooks/useData';
+import Paginaton from '@components/Pagination';
 
 function Admin() {
   const [page, setPage] = useState(1);

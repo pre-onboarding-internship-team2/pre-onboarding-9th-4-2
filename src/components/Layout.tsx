@@ -1,6 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Layout() {
   const location = useLocation();
@@ -11,6 +11,7 @@ function Layout() {
       navigate('/admin');
     }
   });
+
   return (
     <>
       <Flex flexDirection={'column'}>

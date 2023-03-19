@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Layout from './components/Layout';
-import NotFound from './pages/NotFound';
-import Admin from './pages/Admin';
+import Admin from '@pages/Admin';
+import AdminNotFound from '@pages/AdminNotFound';
+import NotFound from '@pages/NotFound';
+import Layout from '@components/Layout';
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
       {
         path: 'admin',
         element: <Admin />,
-        errorElement: <NotFound />,
+        errorElement: <AdminNotFound />,
       },
     ],
     errorElement: <NotFound />,
