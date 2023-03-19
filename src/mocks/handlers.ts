@@ -19,6 +19,7 @@ export const handlers = [
     const status = req.url.searchParams.get(
       orderApiQueryKey.STATUS
     ) as StatusType;
+    const search = req.url.searchParams.get(orderApiQueryKey.SEARCH);
 
     const filterByDate = (origin: typeof mockdata) =>
       date === null
@@ -67,7 +68,16 @@ export const handlers = [
         ? origin.filter(({ status }) => !status)
         : origin;
 
-    const convertedData = sortData(filterByStatus(filterByDate(mockdata)));
+    const filterBySearch = (origin: typeof mockdata) =>
+      search === null
+        ? origin
+        : origin.filter(({ customer_name }) =>
+            customer_name.toLowerCase().includes(search)
+          );
+
+    const convertedData = sortData(
+      filterBySearch(filterByStatus(filterByDate(mockdata)))
+    );
 
     if (convertedData.length <= 0) return res(ctx.status(404));
 

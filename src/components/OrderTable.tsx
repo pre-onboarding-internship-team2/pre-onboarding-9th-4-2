@@ -15,15 +15,17 @@ export default function OrderTable() {
   const date = searchParams.get(orderApiQueryKey.DATE);
   const sort = searchParams.get(orderApiQueryKey.SORT) as SortType;
   const status = searchParams.get(orderApiQueryKey.STATUS) as StatusType;
+  const search = searchParams.get(orderApiQueryKey.SEARCH);
 
   const { data, isSuccess } = useQuery(
-    ["order", page, date, sort, status],
+    ["order", page, date, sort, status, search],
     () =>
       fetchGetOrderList({
         page,
         date,
         sort,
         status,
+        search,
       }),
     {
       select: (res) => {
@@ -103,6 +105,23 @@ export default function OrderTable() {
     <>
       {isSuccess ? (
         <>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formElement = e.target as HTMLFormElement;
+              const inputElement = formElement[0] as HTMLInputElement;
+              const { value } = inputElement;
+              searchParams.set(orderApiQueryKey.SEARCH, value);
+              searchParams.delete(orderApiQueryKey.PAGE);
+              setSearchParams(searchParams);
+            }}
+          >
+            <label>
+              고객이름 검색
+              <input />
+            </label>
+            <button type="submit">검색</button>
+          </form>
           <Table headerRows={headerRows} bodyRows={bodyRows} />
           <PaginationButtons totalCount={totalCount} />
         </>

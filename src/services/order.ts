@@ -22,6 +22,7 @@ export const orderApiQueryKey = {
   DATE: "date",
   SORT: "sort",
   STATUS: "status",
+  SEARCH: "search",
 };
 
 // 과제 요구사항에 따른 페이지당 데이터 개수
@@ -35,17 +36,26 @@ export const fetchGetOrderList = ({
   date,
   sort,
   status,
+  search,
 }: {
   page: string | null;
   date: string | null;
   sort: SortType | null;
   status: StatusType | null;
+  search: string | null;
 }) => {
-  return axios.get<OrderProps[]>(
-    `${orderApiUrls.ORDER}?${orderApiQueryKey.PAGE}=${page ?? "1"}&${
-      orderApiQueryKey.DATE
-    }=${date ?? TODAY}&${orderApiQueryKey.SORT}=${sort}&${
-      orderApiQueryKey.STATUS
-    }=${status}`
-  );
+  const concatQuery = () => {
+    let query = "?";
+    if (page) query = query.concat(`${orderApiQueryKey.PAGE}=${page}&`);
+    else query = query.concat(`${orderApiQueryKey.PAGE}=1&`);
+    if (date) query = query.concat(`${orderApiQueryKey.DATE}=${date}&`);
+    else query = query.concat(`${orderApiQueryKey.DATE}=${TODAY}&`);
+    if (sort) query = query.concat(`${orderApiQueryKey.SORT}=${sort}&`);
+    if (status) query = query.concat(`${orderApiQueryKey.STATUS}=${status}&`);
+    if (search) query = query.concat(`${orderApiQueryKey.SEARCH}=${search}&`);
+
+    return query.slice(0, -1);
+  };
+
+  return axios.get<OrderProps[]>(`${orderApiUrls.ORDER}${concatQuery()}`);
 };
