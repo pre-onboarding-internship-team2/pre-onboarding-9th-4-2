@@ -8,7 +8,7 @@ export default function PaginationButtons({
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const pageNumbers = Array(Math.floor(totalCount / PAGINATION_PER_PAGE))
+  const pageNumbers = Array(Math.ceil(totalCount / PAGINATION_PER_PAGE))
     .fill(0)
     .map((_, i) => (i + 1).toString());
 
