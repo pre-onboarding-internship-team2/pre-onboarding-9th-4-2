@@ -15,6 +15,14 @@ export const orderApiUrls = {
   ORDER: "/api/order",
 };
 
-export const fetchGetOrderList = async () => {
-  return (await axios.get<GetOrderListResponse>(orderApiUrls.ORDER)).data;
+export const orderApiQueryKey = {
+  PAGE: "page",
+};
+
+export const PAGINATION_PER_PAGE = 50;
+
+export const fetchGetOrderList = (page: string) => {
+  return axios.get<GetOrderListResponse>(
+    `${orderApiUrls.ORDER}?${orderApiQueryKey.PAGE}=${page}`
+  );
 };
