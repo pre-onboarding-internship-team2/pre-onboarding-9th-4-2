@@ -1,5 +1,5 @@
 {
-  "name": "smile-nlp",
+  "name": "pre-onboarding-9th-4-2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,8 +11,13 @@
     "lint": "eslint src/**/*.{ts,tsx} --fix"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "framer-motion": "^10.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
