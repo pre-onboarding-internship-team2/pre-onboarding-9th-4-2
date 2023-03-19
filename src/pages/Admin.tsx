@@ -8,17 +8,17 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
+  Badge,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { LIMIT } from '../consts/pagination.consts';
-import Paginaton from '../components/Pagination/Pagination';
+import Paginaton from '../components/Pagination';
 
 function Admin() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * LIMIT;
 
-  const { isLoading, isError, data, error } = useData();
+  const { isLoading, isError, todayData, error } = useData();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -40,34 +40,34 @@ function Admin() {
               <Th>주문처리상태</Th>
               <Th>고객번호</Th>
               <Th>고객이름</Th>
-              <Th isNumeric>가격</Th>
+              <Th>가격</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data!.slice(offset, offset + LIMIT).map((orderList) => (
+            {todayData!.slice(offset, offset + LIMIT).map((orderList) => (
               <Tr key={orderList.id}>
                 <Td>{orderList.id}</Td>
                 <Td>{orderList.transaction_time}</Td>
-                <Td>{orderList.status}</Td>
+                <Td>
+                  {orderList.status ? (
+                    <Badge variant="solid" colorScheme="green">
+                      배송완료
+                    </Badge>
+                  ) : (
+                    <Badge variant="subtle" colorScheme="green">
+                      상품준비중
+                    </Badge>
+                  )}
+                </Td>
                 <Td>{orderList.customer_id}</Td>
                 <Td>{orderList.customer_name}</Td>
                 <Td>{orderList.currency}</Td>
               </Tr>
             ))}
           </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>주문 번호</Th>
-              <Th>거래시간</Th>
-              <Th>주문처리상태</Th>
-              <Th>고객번호</Th>
-              <Th>고객이름</Th>
-              <Th isNumeric>가격</Th>
-            </Tr>
-          </Tfoot>
         </Table>
       </TableContainer>
-      <Paginaton total={data!.length} page={page} setPage={setPage}></Paginaton>
+      <Paginaton total={todayData!.length} page={page} setPage={setPage}></Paginaton>
     </>
   );
 }

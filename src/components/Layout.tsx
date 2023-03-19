@@ -14,9 +14,12 @@ function Layout() {
   return (
     <>
       <Flex flexDirection={'column'}>
-        <Flex flexDirection="row" alignItems={'center'} justifyContent={'center'}>
+        <Flex flexDirection="column" alignItems={'center'} justifyContent={'center'}>
           <Heading as={Link} to="/" my={3} textColor={'black'}>
             주문 내역 관리 페이지
+          </Heading>
+          <Heading size={'md'} mb="10">
+            2023.03.08
           </Heading>
         </Flex>
       </Flex>
