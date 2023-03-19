@@ -9,9 +9,10 @@ import {
 export default function OrderTable() {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get(orderApiQueryKey.PAGE);
+  const date = searchParams.get(orderApiQueryKey.DATE);
   const { data, isSuccess } = useQuery(
     ["order", page],
-    () => fetchGetOrderList(page ?? "1"),
+    () => fetchGetOrderList({ page, date }),
     {
       select: (res) => {
         const totalCount = res.headers["x-total-count"];
@@ -61,7 +62,8 @@ export default function OrderTable() {
           {getPageNumberArray().map((pageNumber) => (
             <button
               onClick={() => {
-                setSearchParams({ [orderApiQueryKey.PAGE]: pageNumber });
+                searchParams.set(orderApiQueryKey.PAGE, pageNumber);
+                setSearchParams(searchParams);
               }}
               key={`page ${pageNumber}`}
             >
