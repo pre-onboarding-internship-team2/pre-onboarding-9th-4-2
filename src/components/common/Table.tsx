@@ -3,14 +3,16 @@ export default function Table({
   headerRows,
 }: {
   bodyRows: { key: string }[];
-  headerRows: string[];
+  headerRows: { title: string; callback?: VoidFunction }[];
 }) {
   return (
     <table>
       <thead>
         <tr>
-          {headerRows.map((title, i) => (
-            <th key={title + i}>{title}</th>
+          {headerRows.map(({ title, callback }, i) => (
+            <th key={title + i} onClick={callback}>
+              {title}
+            </th>
           ))}
         </tr>
       </thead>

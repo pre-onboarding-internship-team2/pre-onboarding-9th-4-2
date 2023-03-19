@@ -9,7 +9,7 @@ export type OrderProps = {
   currency: string; // ex) $20.42
 };
 
-type GetOrderListResponse = OrderProps[];
+export type SortType = "id" | "time" | null;
 
 export const orderApiUrls = {
   ORDER: "/api/order",
@@ -18,6 +18,7 @@ export const orderApiUrls = {
 export const orderApiQueryKey = {
   PAGE: "page",
   DATE: "date",
+  SORT: "sort",
 };
 
 // 과제 요구사항에 따른 페이지당 데이터 개수
@@ -29,13 +30,15 @@ export const TODAY = "2023-03-08";
 export const fetchGetOrderList = ({
   page,
   date,
+  sort,
 }: {
   page: string | null;
   date: string | null;
+  sort: SortType;
 }) => {
-  return axios.get<GetOrderListResponse>(
+  return axios.get<OrderProps[]>(
     `${orderApiUrls.ORDER}?${orderApiQueryKey.PAGE}=${page ?? "1"}&${
       orderApiQueryKey.DATE
-    }=${date ?? TODAY}`
+    }=${date ?? TODAY}&${orderApiQueryKey.SORT}=${sort}`
   );
 };
