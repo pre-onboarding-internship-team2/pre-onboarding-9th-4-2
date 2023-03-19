@@ -9,7 +9,7 @@ export type OrderProps = {
   currency: string; // ex) $20.42
 };
 
-export type SortType = "id" | "time" | null;
+export type SortType = "ID_DES" | "ID_ASC" | "TIME_DES" | "TIME_ASC" | null;
 
 export const orderApiUrls = {
   ORDER: "/api/order",

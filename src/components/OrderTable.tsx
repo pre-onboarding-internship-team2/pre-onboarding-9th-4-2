@@ -39,15 +39,31 @@ export default function OrderTable() {
     {
       title: "주문번호",
       callback: () => {
-        searchParams.set(orderApiQueryKey.SORT, "id");
-        setSearchParams(searchParams);
+        if (sort === "ID_DES") {
+          searchParams.set(orderApiQueryKey.SORT, "ID_ASC");
+          setSearchParams(searchParams);
+        } else if (sort === "ID_ASC") {
+          searchParams.delete(orderApiQueryKey.SORT);
+          setSearchParams(searchParams);
+        } else {
+          searchParams.set(orderApiQueryKey.SORT, "ID_DES");
+          setSearchParams(searchParams);
+        }
       },
     },
     {
       title: "거래시간",
       callback: () => {
-        searchParams.set(orderApiQueryKey.SORT, "time");
-        setSearchParams(searchParams);
+        if (sort === "TIME_DES") {
+          searchParams.set(orderApiQueryKey.SORT, "TIME_ASC");
+          setSearchParams(searchParams);
+        } else if (sort == "TIME_ASC") {
+          searchParams.delete(orderApiQueryKey.SORT);
+          setSearchParams(searchParams);
+        } else {
+          searchParams.set(orderApiQueryKey.SORT, "TIME_DES");
+          setSearchParams(searchParams);
+        }
       },
     },
     { title: "주문처리상태" },

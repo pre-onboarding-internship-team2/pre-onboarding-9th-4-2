@@ -37,13 +37,21 @@ export const handlers = [
           );
 
     const sortData = (origin: typeof mockdata) =>
-      sort === "id"
+      sort === "ID_DES"
         ? origin.sort((a, b) => b.id - a.id)
-        : sort === "time"
+        : sort === "ID_ASC"
+        ? origin.sort((a, b) => a.id - b.id)
+        : sort === "TIME_DES"
         ? origin.sort(
             (a, b) =>
               new Date(b.transaction_time).getTime() -
               new Date(a.transaction_time).getTime()
+          )
+        : sort === "TIME_ASC"
+        ? origin.sort(
+            (a, b) =>
+              new Date(a.transaction_time).getTime() -
+              new Date(b.transaction_time).getTime()
           )
         : origin;
 
