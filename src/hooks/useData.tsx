@@ -1,9 +1,9 @@
 import React from 'react';
-import orderApi from 'api';
 import { useQuery } from 'react-query';
+import orderApi from 'api';
 import { OrderDataResponse } from 'types/order.types';
 
 export default function useData() {
-  const { data, isLoading, isFetching, isError, error } = useQuery<OrderDataResponse[], Error>('orderData', orderApi);
-  return { data, isLoading, isFetching, isError, error };
+  const { data, isLoading, isError } = useQuery<OrderDataResponse[], Error>('orderData', orderApi);
+  return { data, isLoading, isError };
 }

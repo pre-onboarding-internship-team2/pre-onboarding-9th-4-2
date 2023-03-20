@@ -12,7 +12,7 @@ export const FilterWrap = styled.div`
   display: flex;
   align-items: center;
 
-  & span {
+  & span, label {
     font-size: 1.3rem;
   }
 `;
