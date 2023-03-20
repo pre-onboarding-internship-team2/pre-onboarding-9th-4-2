@@ -1,78 +1,14 @@
-# 4주차 과제
-주문내역 관리 어드민 페이지 구현
+### 실행방법
 
-## 팀원 구성표
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/jiyeon2">
-      <img src="https://avatars.githubusercontent.com/u/18395475?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>이지연</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/ggsno">
-      <img src="https://avatars.githubusercontent.com/u/46833758?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>오강산</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/yses9296">
-      <img src="https://avatars.githubusercontent.com/u/54027716?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>최은서</b></sub>
-      </a>
-    </td>
-        <td align="center">
-      <a href="https://github.com/tjswo2292">
-      <img src="https://avatars.githubusercontent.com/u/55657931?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>최선재</b></sub>
-      </a>
-    </td>
-</tr>
-<tr>
-    <td align="center">
-      <a href="https://github.com/jiwonmik">
-      <img src="https://avatars.githubusercontent.com/u/59993029?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>김지원</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/onezeun">
-      <img src="https://avatars.githubusercontent.com/u/78632052?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>한지은</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/iuesver">
-      <img src="https://avatars.githubusercontent.com/u/87600354?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>오혁상</b></sub>
-      </a>
-    </td>
-      <td align="center">
-      <a href="https://github.com/junseokoh-hub">
-      <img src="https://avatars.githubusercontent.com/u/99642719?v=4" width="100px;" alt=""/>
-      <br />
-      <sub><b>오준석</b></sub>
-      </a>
-    </td>
+```
+yarn
+yarn dev
+```
 
-  </tr>
-</table>
+---
 
-## commit convention
-
-| Tag Name | Description      |
-| -------- | ---------------- |
-| feat     | 새로운 기능 추가 |
-| design   | UI style 변경    |
-| refactor | 코드 리팩토링    |
-| fix      | 에러, 버그 수정  |
-| docs     | 문서수정         |
-| chores   | 기타 수정사항    |
+1. 주어진 데이터를 이용하여 주문 목록 페이지를 구현해주세요
+   - [ ] 주문 목록 페이지에는 주문에 대한 모든 정보를 표 형태로 확인할 수 있어야 합니다.
+   - [ ] 주문 목록은 페이지네이션이 구현되어야 합니다(한 페이지에 50건의 주문이 보여야 합니다)
+   - [ ] 데이터 중에서 오늘의 거래건만 보여지도록 해주세요
+     - 여기서 오늘은 “**2023-03-08**”일을 의미합니다.
