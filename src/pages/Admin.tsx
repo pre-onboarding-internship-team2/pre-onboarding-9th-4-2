@@ -10,9 +10,10 @@ import {
   Badge,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { LIMIT } from '@consts/pagination.consts';
 import useData from '@hooks/useData';
 import Paginaton from '@components/Pagination';
+
+const LIMIT = 50;
 
 function Admin() {
   const [page, setPage] = useState(1);
@@ -67,7 +68,7 @@ function Admin() {
           </Tbody>
         </Table>
       </TableContainer>
-      <Paginaton total={todayData!.length} page={page} setPage={setPage}></Paginaton>
+      <Paginaton total={todayData!.length} limit={LIMIT} page={page} setPage={setPage}></Paginaton>
     </>
   );
 }

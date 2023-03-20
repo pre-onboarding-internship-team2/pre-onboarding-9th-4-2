@@ -1,9 +1,8 @@
 import { PaginationProps } from '../../types/type';
 import { Nav, Button } from './styled';
-import { LIMIT } from '@consts/pagination.consts';
 
-function Paginaton({ total, page, setPage }: PaginationProps) {
-  const numPages = Math.ceil(total / LIMIT);
+function Paginaton({ total, limit, page, setPage }: PaginationProps) {
+  const numPages = Math.ceil(total / limit);
 
   return (
     <Nav>
