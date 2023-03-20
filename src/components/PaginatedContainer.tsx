@@ -1,15 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
-
 interface PaginatedContainerProps {
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
   allPages: number;
+  searchParams: URLSearchParams;
+  setSearchParams: any;
 }
 
 const PaginatedContainer = ({
-  page,
-  setPage,
   allPages,
+  searchParams,
+  setSearchParams,
 }: PaginatedContainerProps) => {
   return (
     <div
@@ -19,21 +17,44 @@ const PaginatedContainer = ({
         alignItems: "center",
       }}
     >
-      <button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
+      <button
+        disabled={searchParams.get("page") === "1" || !searchParams.get("page")}
+        onClick={() => {
+          searchParams.set(
+            "page",
+            String(Number(searchParams.get("page")) - 1),
+          );
+          setSearchParams(searchParams);
+        }}
+      >
         &larr;
       </button>
       {new Array(allPages).fill(0).map((_, index) => (
         <button
           key={index}
-          style={{ color: page === index + 1 ? "red" : "black" }}
-          onClick={() => setPage(index + 1)}
+          style={{
+            color:
+              Number(searchParams.get("page") || 1) === index + 1
+                ? "red"
+                : "black",
+          }}
+          onClick={() => {
+            searchParams.set("page", String(index + 1));
+            setSearchParams(searchParams);
+          }}
         >
           {index + 1}
         </button>
       ))}
       <button
-        disabled={page === allPages}
-        onClick={() => setPage((prev) => prev + 1)}
+        disabled={Number(searchParams.get("page")) === allPages}
+        onClick={() => {
+          searchParams.set(
+            "page",
+            String(Number(searchParams.get("page")) + 1),
+          );
+          setSearchParams(searchParams);
+        }}
       >
         &rarr;
       </button>

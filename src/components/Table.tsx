@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CustomerType } from "../types/customer.types";
 import PaginatedContainer from "./PaginatedContainer";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 import { useSearchParams } from "react-router-dom";
+import TableSearchForm from "./TableSearchForm";
 
 export interface TableProps {
   data: CustomerType[];
@@ -11,53 +12,116 @@ export interface TableProps {
 
 const Table = ({ data }: TableProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
+  const queryPage = searchParams.get("page");
   const limit = 50;
-  const offset = (page - 1) * limit;
-  const allPages = data && Math.ceil(data.length / limit);
+  const offset = ((Number(queryPage) || 1) - 1) * limit;
 
   const getFilteredData = () => {
     const queryId = searchParams.get("id");
     const queryTime = searchParams.get("transaction_time");
-    if (!queryId && !queryTime) {
-      return data;
-    }
+    const querySearch = searchParams.get("search");
+    const queryStatus = searchParams.get("status");
 
-    if (queryId && !queryTime) {
-      return data?.sort((a, b) => b.id - a.id);
-    }
-
-    if (!queryId && queryTime) {
-      return data?.sort((a, b) =>
-        a.transaction_time.localeCompare(b.transaction_time),
-      );
-    }
+    const filteredData = data
+      ?.sort((a, b): any => {
+        if (queryId) {
+          return b.id - a.id;
+        } else {
+          return a.id - b.id;
+        }
+      })
+      .sort((a, b): any => {
+        if (queryTime) {
+          return b.transaction_time.localeCompare(a.transaction_time);
+        } else {
+          return data;
+        }
+      })
+      .filter((item) => {
+        if (querySearch) {
+          return item.customer_name
+            .toLowerCase()
+            .includes(querySearch.toLowerCase());
+        } else {
+          return data;
+        }
+      })
+      // eslint-disable-next-line array-callback-return
+      .filter((item) => {
+        if (queryStatus === "true") {
+          return item.status === true;
+        } else if (queryStatus === "false") {
+          return item.status === false;
+        } else {
+          return data;
+        }
+      });
+    return filteredData;
   };
+
+  const allPages = data && Math.ceil(getFilteredData().length / limit);
 
   const orderHandler = (e: any) => {
     if (e.target.abbr === "id") {
       if (searchParams.get("id")) {
-        setSearchParams({});
+        searchParams.delete("id");
+        setSearchParams(searchParams);
       } else {
-        setSearchParams({ id: "desc" });
+        searchParams.append("id", "desc");
+        searchParams.delete("transaction_time");
+        setSearchParams(searchParams);
       }
     }
 
     if (e.target.abbr === "transaction_time") {
       if (searchParams.get("transaction_time")) {
-        setSearchParams({});
+        searchParams.delete("transaction_time");
+        setSearchParams(searchParams);
       } else {
-        setSearchParams({ transaction_time: "desc" });
+        searchParams.append("transaction_time", "desc");
+        searchParams.delete("id");
+        setSearchParams(searchParams);
       }
     }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [page]);
+  }, [queryPage]);
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+    if (name === "status__true") {
+      searchParams.set("status", "true");
+      searchParams.set("page", "1");
+      setSearchParams(searchParams);
+    } else if (name === "status__false") {
+      searchParams.set("status", "false");
+      searchParams.set("page", "1");
+      setSearchParams(searchParams);
+    } else if (name === "status__reset") {
+      searchParams.delete("status");
+      setSearchParams(searchParams);
+    }
+  };
+
+  console.log("rendering");
 
   return (
     <main>
+      <TableSearchForm
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
+      <button name="status__true" onClick={onClick}>
+        status true
+      </button>
+      <button name="status__false" onClick={onClick}>
+        status false
+      </button>
+      <button name="status__reset" onClick={onClick}>
+        status reset
+      </button>
       <table>
         <TableHead onClick={orderHandler} />
         <TableBody
@@ -66,7 +130,11 @@ const Table = ({ data }: TableProps) => {
           limit={limit}
         />
       </table>
-      <PaginatedContainer page={page} setPage={setPage} allPages={allPages} />
+      <PaginatedContainer
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        allPages={allPages}
+      />
     </main>
   );
 };
