@@ -10,6 +10,9 @@ export interface HeaderColumn<T extends OrderData = OrderData> {
 export function OrderListHeaderColumn(props: HeaderColumn) {
   const { label, renderHeaderColumn } = props;
 
-  if (renderHeaderColumn) return renderHeaderColumn(props);
-  return <th>{label}</th>;
+  return (
+    <th className="order-list-table__header-column">
+      {renderHeaderColumn ? renderHeaderColumn(props) : label}
+    </th>
+  );
 }

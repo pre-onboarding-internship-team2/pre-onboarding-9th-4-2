@@ -10,8 +10,11 @@ export function OrderListRow({ headerColumns, rowData }: OrderListRowProps) {
   return (
     <tr>
       {headerColumns.map(({ key, renderRowDataColumn }) => {
-        if (renderRowDataColumn) return <td>{renderRowDataColumn(rowData)}</td>;
-        return <td>{rowData[key]}</td>;
+        return (
+          <td key={key}>
+            {renderRowDataColumn ? renderRowDataColumn(rowData) : rowData[key]}
+          </td>
+        );
       })}
     </tr>
   );
