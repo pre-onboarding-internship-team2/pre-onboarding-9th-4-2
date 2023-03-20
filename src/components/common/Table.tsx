@@ -1,9 +1,11 @@
 export default function Table({
   bodyRows,
   headerRows,
+  isLoading,
 }: {
   bodyRows: { key: string }[];
   headerRows: { title: string; callback?: VoidFunction }[];
+  isLoading?: boolean;
 }) {
   return (
     <table>
@@ -17,13 +19,21 @@ export default function Table({
         </tr>
       </thead>
       <tbody>
-        {bodyRows.map((row) => (
-          <tr key={row.key}>
-            {Object.entries(row).map(([title, content]) =>
-              title === "key" ? null : <td key={title + row.key}>{content}</td>
-            )}
-          </tr>
-        ))}
+        {isLoading ? (
+          <div>loading</div>
+        ) : bodyRows.length === 0 ? (
+          <div>empty</div>
+        ) : (
+          bodyRows.map((row) => (
+            <tr key={row.key}>
+              {Object.entries(row).map(([title, content]) =>
+                title === "key" ? null : (
+                  <td key={title + row.key}>{content}</td>
+                )
+              )}
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );

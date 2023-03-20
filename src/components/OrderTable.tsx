@@ -5,13 +5,7 @@ import { useOrderTableFunctions, useQueryOrderTable } from "./OrderTable.hooks";
 
 export default function OrderTable() {
   const { sortById, sortByTime, filterByStatus } = useOrderTableFunctions();
-  const { orderList, totalCount, isSuccess } = useQueryOrderTable();
-
-  const bodyRows = orderList.map((row) => ({
-    ...row,
-    status: row.status ? "완료" : "처리필요",
-    key: row.id.toString(),
-  }));
+  const { data, isLoading, isSuccess } = useQueryOrderTable();
 
   const headerRows = [
     {
@@ -31,17 +25,23 @@ export default function OrderTable() {
     { title: "가격" },
   ];
 
+  const bodyRows = !isSuccess
+    ? []
+    : data.orderList.map((row) => ({
+        ...row,
+        status: row.status ? "완료" : "처리필요",
+        key: row.id.toString(),
+      }));
+
   return (
     <>
-      {isSuccess ? (
-        <>
-          <SearchForm />
-          <Table headerRows={headerRows} bodyRows={bodyRows} />
-          <PaginationButtons totalCount={totalCount} />
-        </>
-      ) : (
-        "fail"
-      )}
+      <SearchForm />
+      <Table
+        headerRows={headerRows}
+        bodyRows={bodyRows}
+        isLoading={isLoading}
+      />
+      <PaginationButtons totalCount={data?.totalCount ?? 0} />
     </>
   );
 }

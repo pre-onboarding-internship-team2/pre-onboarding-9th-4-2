@@ -7,13 +7,7 @@ import initMocks from "./mocks";
 
 initMocks();
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {

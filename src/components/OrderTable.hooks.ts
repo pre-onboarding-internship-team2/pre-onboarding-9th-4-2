@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useSearchParams } from "react-router-dom";
 import {
   fetchGetOrderList,
@@ -66,7 +67,7 @@ export const useOrderTableFunctions = () => {
 };
 
 export const useQueryOrderTable = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const page = searchParams.get(orderApiQueryKey.PAGE);
   const date = searchParams.get(orderApiQueryKey.DATE);
@@ -74,7 +75,7 @@ export const useQueryOrderTable = () => {
   const status = searchParams.get(orderApiQueryKey.STATUS) as StatusType;
   const search = searchParams.get(orderApiQueryKey.SEARCH);
 
-  const { data, isSuccess } = useQuery(
+  const result = useQuery(
     ["order", page, date, sort, status, search],
     () =>
       fetchGetOrderList({
@@ -90,12 +91,15 @@ export const useQueryOrderTable = () => {
         const orderList = res.data;
         return { totalCount, orderList };
       },
+      retry: (failureCount, error) => {
+        if (error instanceof AxiosError && error.response?.status === 404) {
+          return false;
+        }
+        return failureCount < 3;
+      },
       staleTime: 5000,
     }
   );
 
-  if (isSuccess && !data) throw new Error("success query but no data");
-  const { totalCount, orderList } = data!;
-
-  return { totalCount, orderList, isSuccess };
+  return result;
 };
