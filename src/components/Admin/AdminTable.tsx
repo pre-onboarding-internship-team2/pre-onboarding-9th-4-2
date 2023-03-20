@@ -4,6 +4,7 @@ import AdminTableHead from './AdminTableHead';
 import { Table, TableContainer } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import useSortableTable from '@hooks/useSortableTable';
 
 function AdminTable({ todayData, page, limit }: TableProps) {
@@ -12,6 +13,11 @@ function AdminTable({ todayData, page, limit }: TableProps) {
 function AdminTable({ todayData, page, limit }: TableProps) {
   const [tableData, setTableData] = useState(todayData);
 >>>>>>> 7bdadef (feat: 정렬 기능 구현)
+=======
+import useSortableTable from '@hooks/useSortableTable';
+
+function AdminTable({ todayData, page, limit }: TableProps) {
+>>>>>>> ce42c41 (refactor: 정렬 로직 분리 - useSortableTable custom hook 생성)
   const offset = (page - 1) * limit;
 
   const columns = useMemo<IColumns[]>(
@@ -50,6 +56,7 @@ function AdminTable({ todayData, page, limit }: TableProps) {
     []
   );
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [tableData, handleSorting] = useSortableTable(todayData);
 =======
 
@@ -68,6 +75,9 @@ function AdminTable({ todayData, page, limit }: TableProps) {
     }
   };
 >>>>>>> 7bdadef (feat: 정렬 기능 구현)
+=======
+  const [tableData, handleSorting] = useSortableTable(todayData);
+>>>>>>> ce42c41 (refactor: 정렬 로직 분리 - useSortableTable custom hook 생성)
 
   return (
     <>
