@@ -8,7 +8,7 @@ export const Nav = styled.nav`
   margin: 16px;
 `;
 
-export const Button = styled.button`
+export const PageButton = styled.button`
   border: none;
   border-radius: 8px;
   padding: 8px;

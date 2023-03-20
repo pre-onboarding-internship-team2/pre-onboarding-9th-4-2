@@ -15,3 +15,26 @@ export interface PaginationProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
 }
+
+export interface TableProps {
+  todayData: IData[];
+  page: number;
+  limit: number;
+}
+
+export interface IColumns {
+  header: string;
+  accessor: string;
+  sortable: boolean;
+}
+
+export interface TableHeadProps {
+  columns: IColumns[];
+  handleSorting(accessor: string, sortOrder: string): void;
+}
+
+export interface TableBodyProps {
+  tableData: IData[];
+  offset: number;
+  limit: number;
+}
