@@ -3,7 +3,8 @@ import { DefaultTheme } from 'styled-components';
 const colors = {
   WHITE: '#FFFFFF',
   BLACK: '#000000',
-  GREY: '#CCCCCC',
+  GREY: '#F0F4F7',
+  GREY_100: '#CCCCCC',
   ORANGE: '#F7941D',
 };
 

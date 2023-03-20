@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    font-family: 'Pretendard-Regular', sans-serif;
   };
 
   html, body {
