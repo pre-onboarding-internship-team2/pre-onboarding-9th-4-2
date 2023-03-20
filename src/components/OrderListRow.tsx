@@ -9,9 +9,10 @@ export interface OrderListRowProps {
 export function OrderListRow({ headerColumns, rowData }: OrderListRowProps) {
   return (
     <tr>
-      {headerColumns.map(({ key }) => (
-        <td>{rowData[key]}</td>
-      ))}
+      {headerColumns.map(({ key, renderRowDataColumn }) => {
+        if (renderRowDataColumn) return <td>{renderRowDataColumn(rowData)}</td>;
+        return <td>{rowData[key]}</td>;
+      })}
     </tr>
   );
 }
