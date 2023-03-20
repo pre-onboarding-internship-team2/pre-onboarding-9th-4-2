@@ -8,6 +8,8 @@ import {
   Tbody,
   Td,
   Badge,
+  Stack,
+  Skeleton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import useData from '@hooks/useData';
@@ -22,7 +24,15 @@ function Admin() {
   const { isLoading, isError, todayData, error } = useData();
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <Stack>
+        {Array(LIMIT)
+          .fill(0)
+          .map((_) => (
+            <Skeleton height="20px" />
+          ))}
+      </Stack>
+    );
   }
 
   if (isError) {
