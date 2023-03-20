@@ -1,0 +1,23 @@
+:root {
+  --font-black-color: #333;
+  --font-white-color: #efefef;
+}
+
+table,
+td {
+  border: 1px solid var(--font-black-color);
+}
+
+thead {
+  background-color: var(--font-black-color);
+  color: var(--font-white-color);
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+}
