@@ -3,7 +3,13 @@ import { useQuery } from 'react-query';
 import orderApi from 'api';
 import { OrderDataResponse } from 'types/order.types';
 
+const TODAY = '2023-03-08';
+
 export default function useData() {
-  const { data, isLoading, isError } = useQuery<OrderDataResponse[], Error>('orderData', orderApi);
-  return { data, isLoading, isError };
+  const { data, isLoading, isError } = useQuery<OrderDataResponse[], Error>('orderData', orderApi, {
+    refetchInterval: 5000,
+  });
+  const todayData = data?.filter((data) => data.transaction_time.includes(TODAY));
+
+  return { todayData, isLoading, isError };
 }

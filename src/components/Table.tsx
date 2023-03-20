@@ -6,8 +6,8 @@ import usePagination from 'hooks/usePagination';
 import Pagination from 'components/Pagination';
 
 export default function Table() {
-  const { data, isLoading, isError } = useData();
-  const orderList = data ? data : [];
+  const { todayData, isLoading, isError } = useData();
+  const orderList = todayData ? todayData : [];
   const {
     pages,
     goPrev,
