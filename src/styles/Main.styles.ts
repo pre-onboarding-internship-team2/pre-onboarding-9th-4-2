@@ -7,13 +7,27 @@ export const MainTitleContainer = styled.div`
   padding-right: 20px;
 `;
 
-export const SearchForm = styled.form`
+export const FilterWrap = styled.div`
   display: flex;
   align-items: center;
 
   & span {
-    font-size: 1.3rem
+    font-size: 1.3rem;
   }
+`;
+export const Select = styled.select`
+  height: 25px;
+  margin: 0 20px 0 10px;
+  border: 1px solid ${(props) => props.theme.colors.GREY_100};
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const SearchForm = styled.form`
+  display: flex;
+  align-items: center;
 `;
 
 export const SearchInput = styled.input`
