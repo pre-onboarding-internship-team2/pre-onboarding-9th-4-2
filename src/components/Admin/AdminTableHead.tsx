@@ -19,11 +19,15 @@ function AdminTableHead({ columns, handleSorting }: TableHeadProps) {
       <Tr>
         {columns.map(({ header, accessor, sortable }) => {
           return (
+<<<<<<< HEAD
             <Th
               key={accessor}
               onClick={sortable ? () => handleSortingChange(accessor) : undefined}
               style={{ cursor: sortable ? 'pointer' : 'none' }}
             >
+=======
+            <Th key={accessor} onClick={sortable ? () => handleSortingChange(accessor) : undefined}>
+>>>>>>> 7bdadef (feat: 정렬 기능 구현)
               {header}
               {sortable ? (
                 <Icon
