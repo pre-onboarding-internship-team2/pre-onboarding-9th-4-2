@@ -14,7 +14,7 @@ function useSortableTable(todayData: IData[]): SortableTableProps {
             .toString()
             .localeCompare(b[sortField as keyof IData].toString(), 'en', {
               numeric: true,
-            }) * (sortOrder === 'asc' ? 1 : -1)
+            }) * (sortOrder === 'asc' || sortOrder == 'default' ? 1 : -1)
         );
       });
       setTableData(sorted);

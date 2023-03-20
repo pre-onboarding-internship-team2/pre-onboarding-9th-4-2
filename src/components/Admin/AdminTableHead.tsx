@@ -8,7 +8,8 @@ function AdminTableHead({ columns, handleSorting }: TableHeadProps) {
   const [order, setOrder] = useState('asc');
 
   const handleSortingChange = (accessor: string) => {
-    const sortOrder = accessor === sortField && order === 'asc' ? 'desc' : 'asc';
+    const sortOrder =
+      accessor === sortField && order === 'desc' ? 'asc' : order === 'asc' ? 'default' : 'desc';
     setSortField(accessor);
     setOrder(sortOrder);
     handleSorting(accessor, sortOrder);
