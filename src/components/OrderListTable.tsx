@@ -18,7 +18,7 @@ function OrderListTable({
   isLoading,
 }: OrderListTableProps) {
   return (
-    <table>
+    <table className="order-list-table">
       <thead>
         <tr>
           {headerColumns.map((headerColumn) => (

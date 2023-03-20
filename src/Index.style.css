@@ -1,0 +1,15 @@
+:root {
+  --font-black-color: #333;
+  --font-white-color: #efefef;
+}
+
+table,
+td {
+  border: 1px solid var(--font-black-color);
+}
+
+thead,
+tfoot {
+  background-color: var(--font-black-color);
+  color: var(--font-white-color);
+}

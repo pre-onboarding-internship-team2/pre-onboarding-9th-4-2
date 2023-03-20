@@ -1,0 +1,11 @@
+.App {
+  width: 80%;
+  max-width: 1028px;
+  margin: 0 auto;
+}
+
+.order-list-table {
+  width: 100%;
+  table-layout: auto;
+  text-align: center;
+}

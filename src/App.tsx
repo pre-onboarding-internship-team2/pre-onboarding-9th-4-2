@@ -3,6 +3,7 @@ import { getOrderListData } from "./api/getOrderListData";
 import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import type { OrderData } from "./types/OrderData";
 import OrderListTable from "./components/OrderListTable";
+import "./App.style.css";
 
 function App() {
   const [orderData, setOrderData] = useState<OrderData[]>([]);
