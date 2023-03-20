@@ -10,11 +10,14 @@
   "bracketSameLine": false,
   "importOrder": [
     "^@consts/(.*)$",
-    "^@types/(.*)$",
+    "^@common/(.*)$",
     "^@utils/(.*)$",
     "^@apis/(.*)$",
     "^@hooks/(.*)$",
     "^@pages/(.*)$",
-    "^@components/(.*)$"
-  ]
+    "^@components/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

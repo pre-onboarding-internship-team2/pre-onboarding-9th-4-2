@@ -1,7 +1,12 @@
-import { TableBodyProps } from '../../types/type';
-import { Tr, Tbody, Td, Badge } from '@chakra-ui/react';
+import { Badge, Tbody, Td, Tr } from '@chakra-ui/react';
 
-function AdminTableBody({ tableData, offset, limit }: TableBodyProps) {
+import useData from '@hooks/useSortableTable';
+
+import { TableBodyProps } from '../../common/types';
+
+function AdminTableBody({ offset, limit }: TableBodyProps) {
+  const { tableData } = useData();
+
   return (
     <Tbody>
       {tableData.slice(offset, offset + limit).map((data) => {

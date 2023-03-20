@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import Admin from '@pages/Admin';
 import AdminNotFound from '@pages/AdminNotFound';
 import NotFound from '@pages/NotFound';
+
 import Layout from '@components/Layout';
 
 const router = createBrowserRouter([

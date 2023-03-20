@@ -1,7 +1,11 @@
-import { PaginationProps } from '../../types/type';
+import useData from '@hooks/useSortableTable';
+
+import { PaginationProps } from '../../common/types';
 import { Nav, PageButton } from './styled';
 
-function Paginaton({ total, limit, page, setPage }: PaginationProps) {
+function Paginaton({ limit, page, setPage }: PaginationProps) {
+  const { tableData } = useData();
+  const total = tableData.length;
   const numPages = Math.ceil(total / limit);
 
   return (

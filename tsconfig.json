@@ -22,7 +22,7 @@
       "@consts/*": ["consts/*"],
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
-      "@types/*": ["types/*"],
+      "@common/*": ["common/*"],
       "@utils/*": ["utils/*"]
     }
   },

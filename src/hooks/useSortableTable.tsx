@@ -1,12 +1,24 @@
-import { useState } from 'react';
-import { IData } from '../types/type';
+import { fetchData } from '@api/api';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 
-type SortableTableProps = [IData[], (accessor: string, sortOrder: string) => void];
+import { IData } from '@common/types';
 
-function useSortableTable(todayData: IData[]): SortableTableProps {
+import isToday from '@utils/isToday';
+
+function useSortableTable() {
+  const { isLoading, isError, data, error } = useQuery<IData[], Error>('switchone', fetchData);
+
+  const todayData = data ? data.filter((dataArray) => isToday(dataArray.transaction_time)) : [];
+
   const [tableData, setTableData] = useState(todayData);
 
-  const handleSorting = (sortField: string, sortOrder: string) => {
+  const [searchParams] = useSearchParams();
+  const sortField = searchParams.get('sort');
+  const order = searchParams.get('order');
+
+  useEffect(() => {
     if (sortField) {
       const sorted = [...todayData].sort((a, b) => {
         return (
@@ -14,12 +26,14 @@ function useSortableTable(todayData: IData[]): SortableTableProps {
             .toString()
             .localeCompare(b[sortField as keyof IData].toString(), 'en', {
               numeric: true,
-            }) * (sortOrder === 'asc' || sortOrder == 'default' ? 1 : -1)
+            }) * (order === 'asc' || order == 'default' ? 1 : -1)
         );
       });
       setTableData(sorted);
     }
-  };
-  return [tableData, handleSorting];
+  }, [searchParams]);
+
+  return { isLoading, isError, tableData, error };
 }
+
 export default useSortableTable;
