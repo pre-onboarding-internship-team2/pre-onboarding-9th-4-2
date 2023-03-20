@@ -1,21 +1,19 @@
 import { TriangleDownIcon, TriangleUpIcon, UpDownIcon } from '@chakra-ui/icons';
 import { Icon, Th, Thead, Tr } from '@chakra-ui/react';
 import { TableHeadProps } from 'common/types';
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 function AdminTableHead({ columns }: TableHeadProps) {
   const [params, setParams] = useSearchParams();
-  const [sortField, setSortField] = useState(params.get('sort'));
-  const [order, setOrder] = useState(params.get('order'));
+  const sortField = params.get('sort');
+  const order = params.get('order');
 
   const handleSortingChange = (accessor: string) => {
     const sortOrder =
       accessor === sortField && order === 'desc' ? 'asc' : order === 'asc' ? 'default' : 'desc';
-    setSortField(accessor);
-    setOrder(sortOrder);
 
-    const params = { sort: accessor, order: sortOrder };
+    params.set('sort', accessor);
+    params.set('order', sortOrder);
     setParams(params);
   };
 

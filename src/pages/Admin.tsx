@@ -1,12 +1,12 @@
 import { Skeleton, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { LIMIT } from '@common/order';
+
 import useData from '@hooks/useSortableTable';
 
 import AdminTable from '@components/Admin/AdminTable';
 import Paginaton from '@components/Pagination';
-
-const LIMIT = 50;
 
 function Admin() {
   const [page, setPage] = useState(1);
@@ -31,8 +31,8 @@ function Admin() {
 
   return (
     <>
-      <AdminTable page={page} limit={LIMIT} />
-      <Paginaton limit={LIMIT} page={page} setPage={setPage}></Paginaton>
+      <AdminTable />
+      <Paginaton page={page} setPage={setPage}></Paginaton>
     </>
   );
 }

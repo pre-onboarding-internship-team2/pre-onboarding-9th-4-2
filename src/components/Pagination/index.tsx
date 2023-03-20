@@ -1,12 +1,25 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import { LIMIT } from '@common/order';
+
 import useData from '@hooks/useSortableTable';
 
 import { PaginationProps } from '../../common/types';
 import { Nav, PageButton } from './styled';
 
-function Paginaton({ limit, page, setPage }: PaginationProps) {
+function Paginaton({ page, setPage }: PaginationProps) {
   const { tableData } = useData();
+  const [_, setParams] = useSearchParams();
+
   const total = tableData.length;
-  const numPages = Math.ceil(total / limit);
+  const offset = (page - 1) * LIMIT;
+  const numPages = Math.ceil(total / LIMIT);
+
+  useEffect(() => {
+    const params = { offset: offset + '', limit: LIMIT + '' };
+    setParams(params);
+  }, [offset]);
 
   return (
     <Nav>

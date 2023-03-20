@@ -1,11 +1,14 @@
 import { Badge, Tbody, Td, Tr } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 
 import useData from '@hooks/useSortableTable';
 
-import { TableBodyProps } from '../../common/types';
-
-function AdminTableBody({ offset, limit }: TableBodyProps) {
+function AdminTableBody() {
   const { tableData } = useData();
+  const [params] = useSearchParams();
+
+  const offset = Number(params.get('offset'));
+  const limit = Number(params.get('limit'));
 
   return (
     <Tbody>

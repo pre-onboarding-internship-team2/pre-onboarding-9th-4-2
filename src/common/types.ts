@@ -10,14 +10,8 @@ export interface IData {
 }
 
 export interface PaginationProps {
-  limit: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-}
-
-export interface TableProps {
-  page: number;
-  limit: number;
 }
 
 export interface IColumns {
@@ -28,9 +22,4 @@ export interface IColumns {
 
 export interface TableHeadProps {
   columns: IColumns[];
-}
-
-export interface TableBodyProps {
-  offset: number;
-  limit: number;
 }

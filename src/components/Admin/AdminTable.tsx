@@ -1,13 +1,11 @@
 import { Table, TableContainer } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
-import { IColumns, TableProps } from '../../common/types';
+import { IColumns } from '../../common/types';
 import AdminTableBody from './AdminTableBody';
 import AdminTableHead from './AdminTableHead';
 
-function AdminTable({ page, limit }: TableProps) {
-  const offset = (page - 1) * limit;
-
+function AdminTable() {
   const columns = useMemo<IColumns[]>(
     () => [
       {
@@ -49,7 +47,7 @@ function AdminTable({ page, limit }: TableProps) {
       <TableContainer>
         <Table>
           <AdminTableHead columns={columns} />
-          <AdminTableBody offset={offset} limit={limit} />
+          <AdminTableBody />
         </Table>
       </TableContainer>
     </>
