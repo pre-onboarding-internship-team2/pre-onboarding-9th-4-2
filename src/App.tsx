@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
-import { getOrderListData } from "./api/getOrderListData";
-import type { HeaderColumn } from "./components/OrderListHeaderColumn";
-import type { OrderData } from "./types/OrderData";
-import OrderListTable from "./components/OrderListTable";
+import { useEffect } from "react";
 import "./App.style.css";
+import type { HeaderColumn } from "./components/OrderListHeaderColumn";
+import OrderListTable from "./components/OrderListTable";
 import Pagination from "./components/Pagination";
+import useOrderData from "./hooks/useOrderData";
 
 function App() {
-  const [orderData, setOrderData] = useState<OrderData[]>([]);
-
+  const { loadOrderData, orderData, paginationData } = useOrderData();
   const headerColumns: HeaderColumn[] = [
     { key: "id", label: "주문번호" },
     { key: "transaction_time", label: "거래시간" },
@@ -24,33 +22,8 @@ function App() {
     { key: "currency", label: "가격" },
   ];
 
-  const displayItemAmountPerPage = 50;
-  const [paginationData, setPaginationData] = useState({
-    minPage: 1,
-    maxPage: 1,
-    hasPrevPage: false,
-    hasNextPage: false,
-  });
-
   const onPageChange = async (newPage: number) => {
     loadOrderData(newPage);
-  };
-
-  const loadOrderData = async (page: number) => {
-    const TODAY = "2023-03-08";
-    const { data, minPage, maxPage, hasPrevPage, hasNextPage } =
-      await getOrderListData({
-        date: TODAY,
-        itemAmountPerPage: displayItemAmountPerPage,
-        page,
-      });
-    setOrderData(data);
-    setPaginationData({
-      minPage,
-      maxPage,
-      hasNextPage,
-      hasPrevPage,
-    });
   };
 
   useEffect(() => {
