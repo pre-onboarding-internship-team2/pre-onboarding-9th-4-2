@@ -3,9 +3,9 @@ import AdminTableBody from './AdminTableBody';
 import AdminTableHead from './AdminTableHead';
 import { Table, TableContainer } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
+import useSortableTable from '@hooks/useSortableTable';
 
 function AdminTable({ todayData, page, limit }: TableProps) {
-  const [tableData, setTableData] = useState(todayData);
   const offset = (page - 1) * limit;
 
   const columns = useMemo<IColumns[]>(
@@ -43,21 +43,7 @@ function AdminTable({ todayData, page, limit }: TableProps) {
     ],
     []
   );
-
-  const handleSorting = (sortField: string, sortOrder: string) => {
-    if (sortField) {
-      const sorted = [...todayData].sort((a, b) => {
-        return (
-          a[sortField as keyof IData]
-            .toString()
-            .localeCompare(b[sortField as keyof IData].toString(), 'en', {
-              numeric: true,
-            }) * (sortOrder === 'asc' ? 1 : -1)
-        );
-      });
-      setTableData(sorted);
-    }
-  };
+  const [tableData, handleSorting] = useSortableTable(todayData);
 
   return (
     <>
