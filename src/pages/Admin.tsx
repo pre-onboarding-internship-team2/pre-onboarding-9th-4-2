@@ -18,7 +18,7 @@ function Admin() {
       <Stack>
         {Array(LIMIT)
           .fill(0)
-          .map((index) => (
+          .map((_, index) => (
             <Skeleton key={index} height="20px" />
           ))}
       </Stack>
