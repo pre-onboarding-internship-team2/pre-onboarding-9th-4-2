@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from 'styled-components/macro';
+import { createGlobalStyle } from 'styled-components/macro';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`

@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import { COLORS } from './colors';
 
 export const LayoutContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 30px;
-  background-color: ${(props) => props.theme.colors.GREY};
+  background-color: ${COLORS.GREY};
   & h1 {
     font-size: 2rem;
     font-weight: bold;
@@ -12,7 +13,7 @@ export const LayoutContainer = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.WHITE};
+  background-color: ${COLORS.WHITE};
   border-radius: 15px;
   margin-top: 10px;
   padding: 20px;

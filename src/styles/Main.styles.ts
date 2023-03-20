@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import { COLORS } from './colors';
 
 export const MainTitleContainer = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ export const FilterWrap = styled.div`
 export const Select = styled.select`
   height: 25px;
   margin: 0 20px 0 10px;
-  border: 1px solid ${(props) => props.theme.colors.GREY_100};
+  border: 1px solid ${COLORS.GREY_100};
   border-radius: 5px;
   &:focus {
     outline: none;
@@ -34,7 +35,7 @@ export const SearchInput = styled.input`
   height: 25px;
   padding: 2px 5px;
   margin: 0 10px 0 10px;
-  border: 1px solid ${(props) => props.theme.colors.GREY_100};
+  border: 1px solid ${COLORS.GREY_100};
   border-radius: 5px;
   &:focus {
     outline: none;
@@ -47,7 +48,7 @@ export const SearchButton = styled.button`
   padding: 2px 10px;
   border: none;
   font-size: 1.3rem;
-  background-color: ${(props) => props.theme.colors.ORANGE};
-  color: ${(props) => props.theme.colors.WHITE};
+  background-color: ${COLORS.ORANGE};
+  color: ${COLORS.WHITE};
   border-radius: 5px;
 `;
