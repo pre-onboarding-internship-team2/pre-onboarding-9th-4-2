@@ -8,8 +8,16 @@ td {
   border: 1px solid var(--font-black-color);
 }
 
-thead,
-tfoot {
+thead {
   background-color: var(--font-black-color);
   color: var(--font-white-color);
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
 }

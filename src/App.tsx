@@ -4,6 +4,7 @@ import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import type { OrderData } from "./types/OrderData";
 import OrderListTable from "./components/OrderListTable";
 import "./App.style.css";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [orderData, setOrderData] = useState<OrderData[]>([]);
@@ -23,20 +24,50 @@ function App() {
     { key: "currency", label: "가격" },
   ];
 
-  useEffect(() => {
-    const loadOrderData = async () => {
-      const data = await getOrderListData();
-      setOrderData(data);
-    };
+  const displayItemAmountPerPage = 50;
+  const [paginationData, setPaginationData] = useState({
+    minPage: 1,
+    maxPage: 1,
+    hasPrevPage: false,
+    hasNextPage: false,
+  });
 
-    loadOrderData();
+  const onPageChange = async (newPage: number) => {
+    loadOrderData(newPage);
+  };
+
+  const loadOrderData = async (page: number) => {
+    const TODAY = "2023-03-08";
+    const { data, minPage, maxPage, hasPrevPage, hasNextPage } =
+      await getOrderListData({
+        date: TODAY,
+        itemAmountPerPage: displayItemAmountPerPage,
+        page,
+      });
+    setOrderData(data);
+    setPaginationData({
+      minPage,
+      maxPage,
+      hasNextPage,
+      hasPrevPage,
+    });
+  };
+
+  useEffect(() => {
+    loadOrderData(1);
   }, []);
   return (
     <div className="App">
       <OrderListTable
         headerColumns={headerColumns}
         data={orderData}
-        pagination={<></>}
+        pagination={
+          <Pagination
+            {...paginationData}
+            onPageChange={onPageChange}
+            span={headerColumns.length}
+          />
+        }
       />
     </div>
   );

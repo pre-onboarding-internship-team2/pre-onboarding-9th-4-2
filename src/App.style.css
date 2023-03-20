@@ -9,3 +9,18 @@
   table-layout: auto;
   text-align: center;
 }
+
+.order-list-table__pagination_list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.order-list-table__pagination_list button {
+  cursor: pointer;
+}
+.order-list-table__pagination_list button.active {
+  background-color: var(--font-black-color);
+  color: var(--font-white-color);
+}
