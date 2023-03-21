@@ -1,3 +1,5 @@
+import ShareButton from "../common/ShareButton";
+
 interface PaginatedContainerProps {
   allPages: number;
   searchParams: URLSearchParams;
@@ -10,14 +12,9 @@ const PaginatedContainer = ({
   setSearchParams,
 }: PaginatedContainerProps) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <button
+    <div className="button-container__paginated">
+      <ShareButton
+        type="button"
         disabled={searchParams.get("page") === "1" || !searchParams.get("page")}
         onClick={() => {
           searchParams.set(
@@ -28,9 +25,10 @@ const PaginatedContainer = ({
         }}
       >
         &larr;
-      </button>
+      </ShareButton>
       {new Array(allPages).fill(0).map((_, index) => (
-        <button
+        <ShareButton
+          type="button"
           key={index}
           style={{
             color:
@@ -44,10 +42,11 @@ const PaginatedContainer = ({
           }}
         >
           {index + 1}
-        </button>
+        </ShareButton>
       ))}
-      <button
-        disabled={Number(searchParams.get("page")) === allPages}
+      <ShareButton
+        type="button"
+        disabled={Number(searchParams.get("page")) === allPages || !allPages}
         onClick={() => {
           searchParams.set(
             "page",
@@ -57,7 +56,7 @@ const PaginatedContainer = ({
         }}
       >
         &rarr;
-      </button>
+      </ShareButton>
     </div>
   );
 };

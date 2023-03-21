@@ -65,8 +65,6 @@ const TablePage = () => {
   if (status === "error")
     return <p>{JSON.stringify((error as Error).message)}</p>;
 
-  console.log("rendering");
-
   return (
     <main>
       <TableSearchForm
@@ -92,6 +90,9 @@ const TablePage = () => {
           limit={limit}
         />
       </table>
+      {getFilteredData.length === 0 && (
+        <h3 className="heading-data__none">No Data!</h3>
+      )}
       <PaginatedContainer
         searchParams={searchParams}
         setSearchParams={setSearchParams}

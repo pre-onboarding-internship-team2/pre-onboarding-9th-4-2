@@ -4,9 +4,22 @@ interface ShareButtonProps
     HTMLButtonElement
   > {}
 
-const ShareButton = ({ type, name, children, onClick }: ShareButtonProps) => {
+const ShareButton = ({
+  style,
+  type,
+  name,
+  children,
+  onClick,
+  disabled,
+}: ShareButtonProps) => {
   return (
-    <button type={type} name={name} onClick={onClick}>
+    <button
+      disabled={disabled}
+      style={style}
+      type={type}
+      name={name}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

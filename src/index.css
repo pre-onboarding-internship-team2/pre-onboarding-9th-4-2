@@ -18,14 +18,23 @@ tbody {
 th,
 td {
   padding: 10px;
+  width: 200px;
   border-bottom: 1px solid #000;
   border-top: 1px solid #000;
 }
 
-td {
-  width: 200px;
-}
-
+th:nth-of-type(1),
 td:nth-of-type(1) {
   width: 100px;
+}
+
+.button-container__paginated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading-data__none {
+  padding: 20px 0;
+  text-align: center;
 }

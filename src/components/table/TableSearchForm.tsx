@@ -14,11 +14,12 @@ const TableSearchForm = ({
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const enteredInput = formData.get("search");
+    const enteredInput = formData.get("search") as string;
 
     if (!enteredInput) {
       return;
     }
+
     searchParams.set("search", enteredInput as string);
     searchParams.set("page", "1");
     setSearchParams(searchParams);
@@ -34,7 +35,7 @@ const TableSearchForm = ({
       <input
         type="text"
         name="search"
-        defaultValue={(searchParams.get("search") as string) || ""}
+        defaultValue={searchParams.get("search") || ""}
       />
       <ShareButton type="submit">검색</ShareButton>
       <ShareButton type="button" onClick={resetSearchHandler}>
