@@ -38,7 +38,10 @@ function TableFunc() {
   };
 
   const pagination = (originData: IData[]) => {
-    return originData.slice(offset, offset + limit);
+    if (offset) {
+      return originData.slice(offset, offset + limit);
+    }
+    return originData.slice(0, 50);
   };
 
   const filterByStatus = (originData: IData[]) => {

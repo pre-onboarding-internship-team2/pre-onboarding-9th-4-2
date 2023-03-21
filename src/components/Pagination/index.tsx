@@ -13,17 +13,18 @@ function Paginaton({ page, setPage }: PaginationProps) {
   const [_, setParams] = useSearchParams();
 
   const total = todayData.length;
-  const offset = (page - 1) * LIMIT;
   const numPages = Math.ceil(total / LIMIT);
-
-  useEffect(() => {
-    const params = { offset: offset + '', limit: LIMIT + '' };
-    setParams(params);
-  }, [offset]);
 
   return (
     <Nav>
-      <PageButton onClick={() => setPage(page - 1)} disabled={page === 1}>
+      <PageButton
+        onClick={() => {
+          setPage(page - 1);
+          const params = { offset: (page - 1) * LIMIT + '', limit: LIMIT + '' };
+          setParams(params);
+        }}
+        disabled={page === 1}
+      >
         &lt;
       </PageButton>
       {Array(numPages)
@@ -31,13 +32,24 @@ function Paginaton({ page, setPage }: PaginationProps) {
         .map((_, i) => (
           <PageButton
             key={i + 1}
-            onClick={() => setPage(i + 1)}
+            onClick={() => {
+              setPage(i + 1);
+              const params = { offset: i * LIMIT + '', limit: LIMIT + '' };
+              setParams(params);
+            }}
             aria-current={page === i + 1 ? 'page' : undefined}
           >
             {i + 1}
           </PageButton>
         ))}
-      <PageButton onClick={() => setPage(page + 1)} disabled={page === numPages}>
+      <PageButton
+        onClick={() => {
+          setPage(page + 1);
+          const params = { offset: page * LIMIT + '', limit: LIMIT + '' };
+          setParams(params);
+        }}
+        disabled={page === numPages}
+      >
         &gt;
       </PageButton>
     </Nav>
