@@ -14,7 +14,11 @@ export const TableContainer = styled.table`
 export const Thead = styled.thead`
   font-size: 1.5rem;
   font-weight: bold;
+  
   & tr {
+    display: table;
+    table-layout: fixed;
+    width: calc(100% - 1em);
     border-bottom: 1px solid ${COLORS.GREY};
   }
 
@@ -25,7 +29,14 @@ export const Thead = styled.thead`
 
 export const Tbody = styled.tbody`
   font-size: 1.4rem;
+  display: block;
+  height: calc(100vh - 267px);
+  overflow: auto;
+
   & tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
     border-bottom: 1px solid ${COLORS.GREY};
   }
 

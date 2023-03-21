@@ -6,9 +6,15 @@ export const LayoutContainer = styled.div`
   height: 100%;
   padding: 30px;
   background-color: ${COLORS.GREY};
+  
   & h1 {
     font-size: 2rem;
     font-weight: bold;
+  }
+
+  & .m-auto {
+    max-width: 1280px;
+    margin: auto;
   }
 `;
 
