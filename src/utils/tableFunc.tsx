@@ -3,9 +3,9 @@ import { useSearchParams } from 'react-router-dom';
 import { QueryStringKey } from '@common/order';
 import { IData } from '@common/types';
 
-const YEAR = '2023';
-const MONTH = '03';
-const DAY = '08';
+const YEAR = '2023' as string;
+const MONTH = '03' as string;
+const DAY = '08' as string;
 
 function TableFunc() {
   const [searchParams] = useSearchParams();
@@ -18,10 +18,7 @@ function TableFunc() {
 
   const isToday = (datetime: string) => {
     const [year, month, day] = datetime.split(' ')[0].split('-');
-    if (YEAR == year && MONTH == month && DAY == day) {
-      return true;
-    }
-    return false;
+    return YEAR == year && MONTH == month && DAY == day;
   };
 
   const sortByField = (originData: IData[]) => {
