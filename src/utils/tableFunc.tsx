@@ -47,9 +47,15 @@ function TableFunc() {
   const filterByStatus = (originData: IData[]) => {
     switch (status) {
       case 'true':
-        return originData.filter((data) => data.status);
+        return [
+          ...originData.filter((data) => data.status),
+          ...originData.filter((data) => !data.status),
+        ];
       case 'false':
-        return originData.filter((data) => !data.status);
+        return [
+          ...originData.filter((data) => !data.status),
+          ...originData.filter((data) => data.status),
+        ];
       case 'default':
         return originData;
     }

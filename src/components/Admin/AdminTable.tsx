@@ -45,7 +45,13 @@ function AdminTable() {
 
   return (
     <>
-      <VStack bgColor={'white'} borderRadius="lg" p="5" justifyContent={'left'} height="100%">
+      <VStack
+        bgColor={'white'}
+        borderRadius="lg"
+        p="5"
+        justifyContent={'left'}
+        backgroundColor="gray.100"
+      >
         <Heading size={'md'} mb="5">
           오늘의 거래건 ({[YEAR, MONTH, DAY].join('-')})
         </Heading>

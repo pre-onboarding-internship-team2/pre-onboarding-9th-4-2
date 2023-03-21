@@ -22,6 +22,7 @@ function Paginaton({ page, setPage }: PaginationProps) {
           setPage(page - 1);
           const params = { offset: (page - 1) * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
+          window.scrollTo(0, 0);
         }}
         disabled={page === 1}
       >
@@ -36,6 +37,7 @@ function Paginaton({ page, setPage }: PaginationProps) {
               setPage(i + 1);
               const params = { offset: i * LIMIT + '', limit: LIMIT + '' };
               setParams(params);
+              window.scrollTo(0, 0);
             }}
             aria-current={page === i + 1 ? 'page' : undefined}
           >
@@ -47,6 +49,7 @@ function Paginaton({ page, setPage }: PaginationProps) {
           setPage(page + 1);
           const params = { offset: page * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
+          window.scrollTo(0, 0);
         }}
         disabled={page === numPages}
       >

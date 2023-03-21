@@ -16,7 +16,7 @@ function Admin() {
 
   if (isLoading) {
     return (
-      <Flex justifyContent={'center'} bgColor="gray.300">
+      <Flex justifyContent={'center'}>
         <Flex flexDir={'column'} w="800px">
           <Stack>
             {Array(LIMIT)
@@ -36,7 +36,7 @@ function Admin() {
 
   return (
     <>
-      <Flex justifyContent={'center'} bgColor="gray.300" height="900px">
+      <Flex justifyContent={'center'} height="900px">
         <Flex flexDir={'column'}>
           <Filter />
           <AdminTable />

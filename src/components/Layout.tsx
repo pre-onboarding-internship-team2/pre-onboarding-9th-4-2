@@ -14,7 +14,7 @@ function Layout() {
 
   return (
     <>
-      <Flex flexDirection={'column'} bgColor="gray.300">
+      <Flex flexDirection={'column'} bgColor="white">
         <Flex flexDirection="column" alignItems={'center'} justifyContent={'center'}>
           <Heading as={Link} to="/" my={8} textColor={'black'}>
             주문 내역 관리
