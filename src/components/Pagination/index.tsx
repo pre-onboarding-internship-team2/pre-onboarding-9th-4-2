@@ -3,16 +3,16 @@ import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '@common/order';
 
-import useData from '@hooks/useSortableTable';
+import useData from '@hooks/useData';
 
 import { PaginationProps } from '../../common/types';
 import { Nav, PageButton } from './styled';
 
 function Paginaton({ page, setPage }: PaginationProps) {
-  const { tableData } = useData();
+  const { todayData } = useData();
   const [_, setParams] = useSearchParams();
 
-  const total = tableData.length;
+  const total = todayData.length;
   const offset = (page - 1) * LIMIT;
   const numPages = Math.ceil(total / LIMIT);
 

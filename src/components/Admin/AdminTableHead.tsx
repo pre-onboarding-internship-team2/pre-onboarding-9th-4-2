@@ -3,17 +3,23 @@ import { Icon, Th, Thead, Tr } from '@chakra-ui/react';
 import { TableHeadProps } from 'common/types';
 import { useSearchParams } from 'react-router-dom';
 
+import { OrderKey, OrderType, QueryStringKey } from '@common/order';
+
 function AdminTableHead({ columns }: TableHeadProps) {
   const [params, setParams] = useSearchParams();
-  const sortField = params.get('sort');
-  const order = params.get('order');
+  const sortField = params.get(QueryStringKey.SORT);
+  const order = params.get(QueryStringKey.ORDER);
 
   const handleSortingChange = (accessor: string) => {
     const sortOrder =
-      accessor === sortField && order === 'desc' ? 'asc' : order === 'asc' ? 'default' : 'desc';
+      accessor === sortField && order === OrderKey.DEC
+        ? OrderKey.ASC
+        : order === OrderKey.ASC
+        ? OrderKey.DEFAULT
+        : (OrderKey.DEC as OrderType);
 
-    params.set('sort', accessor);
-    params.set('order', sortOrder);
+    params.set(QueryStringKey.SORT, accessor);
+    params.set(QueryStringKey.ORDER, sortOrder);
     setParams(params);
   };
 
@@ -31,9 +37,9 @@ function AdminTableHead({ columns }: TableHeadProps) {
               {sortable ? (
                 <Icon
                   as={
-                    sortField === accessor && order === 'asc'
+                    sortField === accessor && order === OrderKey.ASC
                       ? TriangleUpIcon
-                      : sortField === accessor && order === 'desc'
+                      : sortField === accessor && order === OrderKey.DEC
                       ? TriangleDownIcon
                       : UpDownIcon
                   }
