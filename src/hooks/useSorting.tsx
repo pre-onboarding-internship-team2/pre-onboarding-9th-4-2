@@ -14,7 +14,7 @@ export default function useSorting(todayData: OrderDataResponse[]): SortingProps
   const [timeFilter, setTimeFilter] = useState('DEFAULT');
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get('sort');
-  let orderList = todayData ? todayData : [];
+  let orderList = todayData;
 
   const handleIdSorting = () => {
     if (!sort || sort.includes('TIME')) {
