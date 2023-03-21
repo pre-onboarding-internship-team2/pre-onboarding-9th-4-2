@@ -3,7 +3,7 @@ export const orderHandler = (
   queryTime: string,
   searchParams: URLSearchParams,
   setSearchParams: any,
-  e: any,
+  e: React.BaseSyntheticEvent,
 ) => {
   if (e.target.abbr === "id") {
     if (queryId) {

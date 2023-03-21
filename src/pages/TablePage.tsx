@@ -6,6 +6,7 @@ import TableHead from "../components/table/TableHead";
 import TableSearchForm from "../components/table/TableSearchForm";
 import PaginatedContainer from "../components/table/PaginatedContainer";
 import StatusButtonContainer from "../components/table/StatusButtonContainer";
+import ShareButton from "../components/common/ShareButton";
 import { filterData } from "../utils/filterData";
 import { orderHandler } from "../utils/orderHandler";
 import { getCustomers } from "../api/customer-api";
@@ -46,17 +47,14 @@ const TablePage = () => {
   const allPages =
     data && Math.ceil((getFilteredData as CustomerType[]).length / limit);
 
-  const sortOrderHandler = useMemo(
-    () => (e: any) =>
-      orderHandler(
-        queryId as string,
-        queryTime as string,
-        searchParams,
-        setSearchParams,
-        e,
-      ),
-    [queryId, queryTime, searchParams, setSearchParams],
-  );
+  const sortOrderHandler = (e: React.BaseSyntheticEvent) =>
+    orderHandler(
+      queryId as string,
+      queryTime as string,
+      searchParams,
+      setSearchParams,
+      e,
+    );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,6 +64,8 @@ const TablePage = () => {
 
   if (status === "error")
     return <p>{JSON.stringify((error as Error).message)}</p>;
+
+  console.log("rendering");
 
   return (
     <main>
@@ -77,6 +77,13 @@ const TablePage = () => {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
+      <ShareButton
+        type="button"
+        name="reset-all"
+        onClick={() => setSearchParams({})}
+      >
+        전체 리셋
+      </ShareButton>
       <table>
         <TableHead onClick={sortOrderHandler} />
         <TableBody

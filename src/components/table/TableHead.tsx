@@ -1,5 +1,5 @@
 interface TableHeadProps {
-  onClick: (e: any) => void;
+  onClick: (e: React.BaseSyntheticEvent) => void;
 }
 
 const TableHead = ({ onClick }: TableHeadProps) => {
