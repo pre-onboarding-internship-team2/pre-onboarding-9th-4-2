@@ -14,11 +14,14 @@ interface GetOrderListDataRes {
   hasPrevPage: boolean;
   hasNextPage: boolean;
 }
+
+export const TODAY = "2023-03-08";
+
 export const getOrderListData = async ({
-  date,
+  date = TODAY,
   itemAmountPerPage = 50,
-  page,
-}: GetOrderListDataProps): Promise<GetOrderListDataRes> => {
+  page = 1,
+}: Partial<GetOrderListDataProps>): Promise<GetOrderListDataRes> => {
   const res = await fetch("/mock_data.json");
   if (!res.ok) throw new Error("데이터를 불러오지 못했습니다");
   const data: OrderData[] = await res.json();
