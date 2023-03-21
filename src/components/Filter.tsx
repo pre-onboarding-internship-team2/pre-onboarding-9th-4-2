@@ -11,19 +11,19 @@ function Filter() {
   const initRadioVal = params.get(QueryStringKey.STATUS) || 'all';
 
   const handleRadio = (value: string) => {
-    params.set('status', value);
+    params.set(QueryStringKey.STATUS, value);
     setParams(params);
   };
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    params.set('name', searchName.toLocaleLowerCase());
+    params.set(QueryStringKey.NAME, searchName.toLocaleLowerCase());
     setParams(params);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value == '') {
-      params.delete('name');
+      params.delete(QueryStringKey.NAME);
       setParams(params);
     }
     setSearchName(e.target.value);

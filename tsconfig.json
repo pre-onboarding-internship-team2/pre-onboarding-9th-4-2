@@ -15,16 +15,20 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@api/*": ["api/*"],
-      "@consts/*": ["consts/*"],
-      "@hooks/*": ["hooks/*"],
-      "@pages/*": ["pages/*"],
-      "@common/*": ["common/*"],
-      "@utils/*": ["utils/*"]
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@api*": ["src/api/*"],
+      "@consts*": ["src/consts/*"],
+      "@hooks*": ["src/hooks/*"],
+      "@pages*": ["src/pages/*"],
+      "@common*": ["src/common/*"],
+      "@utils*": ["src/utils/*"]
     }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
