@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "../functions/fetcher";
 import TextInput from "../components/input/TextInput";
@@ -5,14 +6,25 @@ import TableHead from "../components/table/TableHead";
 import TableBody from "../components/table/TableBody";
 import ButtonGroup from "../components/button/ButtonGroup";
 
-const MainPage = () => {
-  // const { error, isValidating } = useSWR("/", fetcher, {
-  //   refreshInterval: 5000,
-  // });
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-  // if (error) {
-  //   return <div>Something wrong...</div>;
-  // }
+const MainPage = () => {
+  const { error, isValidating } = useSWR("/", fetcher, {
+    refreshInterval: 5000,
+  });
+
+  useEffect(() => {
+    if (isValidating) {
+      const notify = () =>
+        toast.success("데이터가 업데이트 되었습니다.", { autoClose: 1000 });
+      notify();
+    }
+  }, [isValidating]);
+
+  if (error) {
+    return <div>Something wrong...</div>;
+  }
   return (
     <section>
       <article className="flex flex-col items-center">
@@ -24,6 +36,7 @@ const MainPage = () => {
         </table>
         <ButtonGroup />
       </article>
+      <ToastContainer />
     </section>
   );
 };
