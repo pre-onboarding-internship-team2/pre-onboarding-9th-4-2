@@ -1,10 +1,13 @@
-import { TableBodyProps } from '../../types/type';
-import { Tr, Tbody, Td, Badge } from '@chakra-ui/react';
+import { Badge, Tbody, Td, Tr } from '@chakra-ui/react';
 
-function AdminTableBody({ tableData, offset, limit }: TableBodyProps) {
+import useData from '@hooks/useData';
+
+function AdminTableBody() {
+  const { tableData } = useData();
+
   return (
     <Tbody>
-      {tableData.slice(offset, offset + limit).map((data) => {
+      {tableData.map((data) => {
         return (
           <Tr key={data.id}>
             <Td>{data.id}</Td>

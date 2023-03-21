@@ -1,6 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 function Layout() {
   const location = useLocation();

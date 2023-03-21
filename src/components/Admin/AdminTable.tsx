@@ -1,13 +1,11 @@
-import { TableProps, IColumns, IData } from '../../types/type';
+import { Table, TableContainer } from '@chakra-ui/react';
+import { useMemo } from 'react';
+
+import { IColumns } from '../../common/types';
 import AdminTableBody from './AdminTableBody';
 import AdminTableHead from './AdminTableHead';
-import { Table, TableContainer } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
-import useSortableTable from '@hooks/useSortableTable';
 
-function AdminTable({ todayData, page, limit }: TableProps) {
-  const offset = (page - 1) * limit;
-
+function AdminTable() {
   const columns = useMemo<IColumns[]>(
     () => [
       {
@@ -43,14 +41,13 @@ function AdminTable({ todayData, page, limit }: TableProps) {
     ],
     []
   );
-  const [tableData, handleSorting] = useSortableTable(todayData);
 
   return (
     <>
       <TableContainer>
         <Table>
-          <AdminTableHead columns={columns} handleSorting={handleSorting} />
-          <AdminTableBody tableData={tableData} offset={offset} limit={limit} />
+          <AdminTableHead columns={columns} />
+          <AdminTableBody />
         </Table>
       </TableContainer>
     </>

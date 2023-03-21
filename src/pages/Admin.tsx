@@ -1,25 +1,32 @@
-import { Stack, Skeleton } from '@chakra-ui/react';
+import { Flex, Skeleton, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
-import useData from '@hooks/useData';
-import AdminTable from '@components/Admin/AdminTable';
-import Paginaton from '@components/Pagination';
 
-const LIMIT = 50;
+import { LIMIT } from '@common/order';
+
+import useData from '@hooks/useData';
+
+import AdminTable from '@components/Admin/AdminTable';
+import Filter from '@components/Filter';
+import Paginaton from '@components/Pagination';
 
 function Admin() {
   const [page, setPage] = useState(1);
 
-  const { isLoading, isError, todayData, error } = useData();
+  const { isLoading, isError, error } = useData();
 
   if (isLoading) {
     return (
-      <Stack>
-        {Array(LIMIT)
-          .fill(0)
-          .map((_) => (
-            <Skeleton height="20px" />
-          ))}
-      </Stack>
+      <Flex justifyContent={'center'}>
+        <Flex flexDir={'column'} w="800px">
+          <Stack>
+            {Array(LIMIT)
+              .fill(0)
+              .map((_, index) => (
+                <Skeleton key={index} height="20px" />
+              ))}
+          </Stack>
+        </Flex>
+      </Flex>
     );
   }
 
@@ -29,8 +36,13 @@ function Admin() {
 
   return (
     <>
-      <AdminTable todayData={todayData} page={page} limit={LIMIT} />
-      <Paginaton total={todayData!.length} limit={LIMIT} page={page} setPage={setPage}></Paginaton>
+      <Flex justifyContent={'center'}>
+        <Flex flexDir={'column'} w="800px">
+          <Filter />
+          <AdminTable />
+          <Paginaton page={page} setPage={setPage}></Paginaton>
+        </Flex>
+      </Flex>
     </>
   );
 }
