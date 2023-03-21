@@ -24,5 +24,3 @@ const PageNation = () => {
 }
 
 export default PageNation
-
-// 페이지 길이만큼 생성하고 싶은데 : map.size
