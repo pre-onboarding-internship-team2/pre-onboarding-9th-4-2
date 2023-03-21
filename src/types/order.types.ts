@@ -1,5 +1,5 @@
 export interface OrderDataResponse {
-  id: string;
+  id: number;
   transaction_time: string;
   status: boolean;
   customer_id: number;

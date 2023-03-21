@@ -6,7 +6,11 @@ import { PaginationType } from 'types/pagination.type';
 // listNum: 한 페이지 당 보여질 데이터 개수
 // pageNum: 한 블럭 당 페이지 수
 
-export default function usePagination(total: number, listNum: number, pageNum: number): PaginationType {
+export default function usePagination(
+  total: number,
+  listNum: number,
+  pageNum: number
+): PaginationType {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // 현재 페이지
@@ -30,15 +34,18 @@ export default function usePagination(total: number, listNum: number, pageNum: n
   );
 
   const goPrev = () => {
-    setSearchParams({ page: (currentPage - 1).toString() });
+    searchParams.set('page', (currentPage - 1).toString());
+    setSearchParams(searchParams);
   };
 
   const goNext = () => {
-    setSearchParams({ page: (currentPage + 1).toString() });
+    searchParams.set('page', (currentPage + 1).toString());
+    setSearchParams(searchParams);
   };
 
   const goPageNum = (value: number) => {
-    setSearchParams({ page: value.toString() });
+    searchParams.set('page', value.toString());
+    setSearchParams(searchParams);
   };
 
   return {

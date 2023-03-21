@@ -25,6 +25,12 @@ export const Thead = styled.thead`
   & th {
     padding: 10px 5px;
   }
+
+  & .icon {
+    margin-left: 5px;
+    vertical-align: top;
+    cursor:pointer;
+  }
 `;
 
 export const Tbody = styled.tbody`

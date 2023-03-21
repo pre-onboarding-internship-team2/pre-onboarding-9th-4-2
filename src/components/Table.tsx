@@ -3,12 +3,14 @@ import * as S from '../styles/Table.styles';
 import { OrderDataResponse } from 'types/order.types';
 import useData from 'hooks/useData';
 import usePagination from 'hooks/usePagination';
+import useSorting from 'hooks/useSorting';
 import Pagination from 'components/Pagination';
+import { TiArrowUnsorted, TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/ti';
 
 export default function Table() {
-  const { todayData, isLoading, isError } = useData();
-  const orderList = todayData ? todayData : [];
-  const { pages, goPrev, goNext, goPageNum, lastPage, currentPage, startIdx, lastIdx } = usePagination(orderList.length, 50, 5);
+  let { todayData, isLoading, isError } = useData();
+  const { pages, goPrev, goNext, goPageNum, lastPage, currentPage, startIdx, lastIdx } = usePagination(todayData.length, 50, 5);
+  const { sort, orderList, timeFilter, handleIdSorting, handleTimeSorting } = useSorting(todayData);
 
   if (isError) return <h3>ERROR!</h3>;
   if (isLoading) return <h3>Loading...</h3>;
@@ -17,8 +19,24 @@ export default function Table() {
       <S.TableContainer>
         <S.Thead>
           <tr>
-            <th>주문번호</th>
-            <th>거래시간</th>
+            <th onClick={handleIdSorting}>
+              <span>주문번호</span>
+              {sort === 'ID_ASC' ? (
+                <TiArrowSortedDown className="icon" />
+              ) : (
+                <TiArrowSortedUp className="icon" />
+              )}
+            </th>
+            <th onClick={handleTimeSorting}>
+              <span>거래시간</span>
+              {
+                {
+                  TIME_DESC: <TiArrowSortedUp className="icon" />,
+                  TIME_ASC: <TiArrowSortedDown className="icon" />,
+                  DEFAULT: <TiArrowUnsorted className="icon" />,
+                }[timeFilter]
+              }
+            </th>
             <th>주문처리상태</th>
             <th>고객번호</th>
             <th>고객이름</th>
