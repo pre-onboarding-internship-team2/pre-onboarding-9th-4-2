@@ -23,11 +23,11 @@ function App() {
   ];
 
   const onPageChange = async (newPage: number) => {
-    loadOrderData(newPage);
+    loadOrderData({ page: newPage });
   };
 
   useEffect(() => {
-    loadOrderData(1);
+    loadOrderData({ page: 1 });
   }, []);
   return (
     <div className="App">

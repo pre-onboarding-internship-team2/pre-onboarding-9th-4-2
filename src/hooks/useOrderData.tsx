@@ -15,7 +15,7 @@ function useOrderData() {
 
   const displayItemAmountPerPage = 50;
 
-  const loadOrderData = async (page: number) => {
+  const loadOrderData = async ({ page }: { page: number }) => {
     const TODAY = "2023-03-08";
     const { data, minPage, maxPage, hasPrevPage, hasNextPage } =
       await getOrderListData({
