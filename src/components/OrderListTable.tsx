@@ -22,7 +22,7 @@ function OrderListTable({
       <thead>
         <tr>
           {headerColumns.map((headerColumn) => (
-            <OrderListHeaderColumn {...headerColumn} />
+            <OrderListHeaderColumn key={headerColumn.field} {...headerColumn} />
           ))}
         </tr>
       </thead>

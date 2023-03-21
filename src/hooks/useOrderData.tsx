@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import { getOrderListData, TODAY } from "../api/getOrderListData";
+import {
+  getOrderListData,
+  GetOrderListDataProps,
+  TODAY,
+} from "../api/getOrderListData";
 
 function useOrderData() {
   const displayItemAmountPerPage = 50;
@@ -9,6 +13,9 @@ function useOrderData() {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageFromQueryString = searchParams.get("page");
   const currentPage = pageFromQueryString ? Number(pageFromQueryString) : 1;
+  // TODO ; sortBy, sortOrder searchParams에서 가져오고 저장하는 훅 만들기. HeaderSortDisplay에서도 사용함
+  const sortBy = searchParams.get("sortBy");
+  const sortOrder = searchParams.get("sortOrder");
 
   const onPageChange = (newPage: number) => {
     setSearchParams((prev) => ({ ...prev, page: newPage }));
@@ -29,11 +36,19 @@ function useOrderData() {
         page: currentPage,
         date: TODAY,
         itemAmountPerPage: displayItemAmountPerPage,
+        sortBy,
+        sortOrder,
       },
     ],
     () =>
       getOrderListData({
         page: currentPage,
+        sortBy: sortBy
+          ? (sortBy as GetOrderListDataProps["sortBy"])
+          : undefined,
+        sortOrder: sortOrder
+          ? (sortOrder as GetOrderListDataProps["sortOrder"])
+          : undefined,
       }),
     {
       onSuccess: ({ minPage, maxPage, hasNextPage, hasPrevPage }) => {

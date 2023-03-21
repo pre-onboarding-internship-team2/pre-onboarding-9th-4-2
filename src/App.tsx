@@ -8,16 +8,16 @@ function App() {
   const { isLoading, orderData, paginationData, currentPage, onPageChange } =
     useOrderData();
   const headerColumns: HeaderColumn[] = [
-    { key: "id", label: "주문번호" },
-    { key: "transaction_time", label: "거래시간" },
+    { field: "id", label: "주문번호", sortable: true },
+    { field: "transaction_time", label: "거래시간", sortable: true },
     {
-      key: "status",
+      field: "status",
       label: "주문처리상태",
       renderRowDataColumn: (rowData) => rowData["status"].toString(),
     },
-    { key: "customer_id", label: "고객번호" },
-    { key: "customer_name", label: "고객이름" },
-    { key: "currency", label: "가격" },
+    { field: "customer_id", label: "고객번호" },
+    { field: "customer_name", label: "고객이름" },
+    { field: "currency", label: "가격" },
   ];
 
   return (
