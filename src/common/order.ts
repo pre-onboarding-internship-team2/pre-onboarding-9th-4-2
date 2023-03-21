@@ -21,4 +21,5 @@ export const QueryStringKey = {
   OFFSET: 'offset',
   LIMIT: 'limit',
   STATUS: 'status',
+  NAME: 'name',
 };

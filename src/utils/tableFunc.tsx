@@ -1,4 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
+
+import { QueryStringKey } from '@common/order';
 import { IData } from '@common/types';
 
 const YEAR = '2023';
@@ -7,11 +9,12 @@ const DAY = '08';
 
 function TableFunc() {
   const [searchParams] = useSearchParams();
-  const sortField = searchParams.get('sort');
-  const order = searchParams.get('order');
-  const offset = Number(searchParams.get('offset'));
-  const limit = Number(searchParams.get('limit'));
-  const status = searchParams.get('status');
+  const sortField = searchParams.get(QueryStringKey.SORT);
+  const order = searchParams.get(QueryStringKey.ORDER);
+  const offset = Number(searchParams.get(QueryStringKey.OFFSET));
+  const limit = Number(searchParams.get(QueryStringKey.LIMIT));
+  const status = searchParams.get(QueryStringKey.STATUS);
+  const name = searchParams.get(QueryStringKey.NAME);
 
   const isToday = (datetime: string) => {
     const [year, month, day] = datetime.split(' ')[0].split('-');
@@ -52,7 +55,14 @@ function TableFunc() {
     }
     return originData;
   };
-  return { isToday, sortByField, pagination, filterByStatus };
+
+  const searchByName = (originData: IData[]) => {
+    if (name) {
+      return originData.filter((data) => data.customer_name.toLocaleLowerCase().includes(name));
+    }
+    return originData;
+  };
+  return { isToday, sortByField, pagination, filterByStatus, searchByName };
 }
 
 export default TableFunc;

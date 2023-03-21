@@ -1,14 +1,13 @@
 import { Flex, Skeleton, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '@common/order';
 
 import useData from '@hooks/useData';
 
 import AdminTable from '@components/Admin/AdminTable';
-import Paginaton from '@components/Pagination';
 import Filter from '@components/Filter';
+import Paginaton from '@components/Pagination';
 
 function Admin() {
   const [page, setPage] = useState(1);
