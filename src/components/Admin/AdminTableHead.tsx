@@ -1,6 +1,6 @@
 import { TriangleDownIcon, TriangleUpIcon, UpDownIcon } from '@chakra-ui/icons';
 import { Icon, Th, Thead, Tr } from '@chakra-ui/react';
-import { TableHeadProps } from 'common/types';
+import { TableHeadProps } from '@common/types';
 import { useSearchParams } from 'react-router-dom';
 
 import { OrderKey, OrderType, QueryStringKey } from '@common/order';
