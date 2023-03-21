@@ -36,7 +36,7 @@ function Admin() {
 
   return (
     <>
-      <Flex justifyContent={'center'} bgColor="gray.300">
+      <Flex justifyContent={'center'} bgColor="gray.300" height="900px">
         <Flex flexDir={'column'}>
           <Filter />
           <AdminTable />
