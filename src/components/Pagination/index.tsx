@@ -1,25 +1,26 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { LIMIT } from '@common/order';
+import { LIMIT, QueryStringKey } from '@common/order';
 
 import useData from '@hooks/useData';
 
 import { PaginationProps } from '../../common/types';
 import { Nav, PageButton } from './styled';
 
-function Paginaton({ page, setPage }: PaginationProps) {
+function Paginaton() {
   const { todayData } = useData();
-  const [_, setParams] = useSearchParams();
+  const [params, setParams] = useSearchParams();
+  const page = (Number(params.get(QueryStringKey.OFFSET)) + LIMIT) / LIMIT;
 
   const total = todayData.length;
   const numPages = Math.ceil(total / LIMIT);
+  console.log(page);
 
   return (
     <Nav>
       <PageButton
         onClick={() => {
-          setPage(page - 1);
           const params = { offset: (page - 1) * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
           window.scrollTo(0, 0);
@@ -34,19 +35,17 @@ function Paginaton({ page, setPage }: PaginationProps) {
           <PageButton
             key={i + 1}
             onClick={() => {
-              setPage(i + 1);
               const params = { offset: i * LIMIT + '', limit: LIMIT + '' };
               setParams(params);
               window.scrollTo(0, 0);
             }}
-            aria-current={page === i + 1 ? 'page' : undefined}
+            aria-current={page - 1 === i ? 'page' : undefined}
           >
             {i + 1}
           </PageButton>
         ))}
       <PageButton
         onClick={() => {
-          setPage(page + 1);
           const params = { offset: page * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
           window.scrollTo(0, 0);

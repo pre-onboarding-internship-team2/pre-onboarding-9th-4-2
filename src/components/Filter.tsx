@@ -21,6 +21,8 @@ function Filter() {
   const initRadioVal = params.get(QueryStringKey.STATUS) || 'all';
 
   const handleRadio = (value: string) => {
+    params.delete(QueryStringKey.SORT);
+    params.delete(QueryStringKey.ORDER);
     params.set(QueryStringKey.STATUS, value);
     setParams(params);
   };

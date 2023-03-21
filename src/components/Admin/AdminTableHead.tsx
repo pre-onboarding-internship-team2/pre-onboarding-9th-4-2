@@ -18,6 +18,7 @@ function AdminTableHead({ columns }: TableHeadProps) {
         ? OrderKey.DEFAULT
         : (OrderKey.DEC as OrderType);
 
+    params.delete(QueryStringKey.STATUS);
     params.set(QueryStringKey.SORT, accessor);
     params.set(QueryStringKey.ORDER, sortOrder);
     setParams(params);
