@@ -18,7 +18,7 @@ function Pagination({
 }: PaginationProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const pages = Array(maxPage === 1 ? 1 : maxPage - 1)
+  const pages = Array(maxPage)
     .fill(0)
     .map((_, index) => ({ key: index, page: index + 1 }));
 
