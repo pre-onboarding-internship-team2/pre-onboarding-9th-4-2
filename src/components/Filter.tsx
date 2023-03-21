@@ -1,13 +1,13 @@
 import {
   Box,
   Button,
+  Divider,
   HStack,
   Heading,
   Input,
   Radio,
   RadioGroup,
   VStack,
-  Divider,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';

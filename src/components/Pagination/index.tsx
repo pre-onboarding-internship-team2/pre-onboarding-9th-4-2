@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT, QueryStringKey } from '@common/order';
 
 import useData from '@hooks/useData';
 
-import { PaginationProps } from '../../common/types';
 import { Nav, PageButton } from './styled';
 
 function Paginaton() {
