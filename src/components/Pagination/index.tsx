@@ -13,7 +13,6 @@ function Paginaton() {
 
   const total = todayData.length;
   const numPages = Math.ceil(total / LIMIT);
-  console.log(page);
 
   return (
     <Nav>
