@@ -1,6 +1,7 @@
-import { TableProps } from "./Table";
+import { CustomerType } from "../../types/customer.types";
 
-interface TableBodyProps extends TableProps {
+interface TableBodyProps {
+  data: CustomerType[];
   offset: number;
   limit: number;
 }

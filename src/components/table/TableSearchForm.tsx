@@ -1,4 +1,5 @@
 import React from "react";
+import ShareButton from "../common/ShareButton";
 
 interface TableSearchFormProps {
   searchParams: URLSearchParams;
@@ -21,14 +22,22 @@ const TableSearchForm = ({
     setSearchParams(searchParams);
   };
 
+  const resetSearchHandler = () => {
+    searchParams.delete("search");
+    setSearchParams(searchParams);
+  };
+
   return (
     <form onSubmit={searchSubmitHandler}>
       <input
         type="text"
         name="search"
-        defaultValue={searchParams.get("search") as string}
+        defaultValue={(searchParams.get("search") as string) || ""}
       />
-      <button>검색</button>
+      <ShareButton type="submit">검색</ShareButton>
+      <ShareButton type="button" onClick={resetSearchHandler}>
+        검색 초기화
+      </ShareButton>
     </form>
   );
 };
