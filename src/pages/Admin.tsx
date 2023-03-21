@@ -16,7 +16,7 @@ function Admin() {
 
   if (isLoading) {
     return (
-      <Flex justifyContent={'center'}>
+      <Flex justifyContent={'center'} bgColor="gray.300">
         <Flex flexDir={'column'} w="800px">
           <Stack>
             {Array(LIMIT)
@@ -36,8 +36,8 @@ function Admin() {
 
   return (
     <>
-      <Flex justifyContent={'center'}>
-        <Flex flexDir={'column'} w="800px">
+      <Flex justifyContent={'center'} bgColor="gray.300">
+        <Flex flexDir={'column'}>
           <Filter />
           <AdminTable />
           <Paginaton page={page} setPage={setPage}></Paginaton>

@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Box, Button, HStack, Heading, Input, Radio, RadioGroup, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -30,22 +30,30 @@ function Filter() {
   };
 
   return (
-    <Box m="3" mb="5" bg="gray.400" borderRadius={'lg'} p={4} color="black">
-      <RadioGroup onChange={handleRadio} value={initRadioVal}>
-        <Stack mb="5" direction="row">
-          <Heading mr="10" size={'sm'}>
-            주문 처리 상태
-          </Heading>
-          <Radio value={StatusKey.ALL} defaultChecked>
-            전체
-          </Radio>
-          <Radio value={StatusKey.FALSE}>상품준비중</Radio>
-          <Radio value={StatusKey.TRUE}>배송완료</Radio>
-        </Stack>
+    <VStack mb="5" bg="gray.400" borderRadius={'lg'} p={4}>
+      <Box
+        display="flex"
+        flexDir={'row'}
+        width="full"
+        alignItems="center"
+        justifyContent={'space-between'}
+      >
+        <RadioGroup onChange={handleRadio} value={initRadioVal}>
+          <HStack>
+            <Heading mr="10" size={'sm'}>
+              주문 처리 상태
+            </Heading>
+            <Radio value={StatusKey.ALL} defaultChecked>
+              전체
+            </Radio>
+            <Radio value={StatusKey.FALSE}>상품준비중</Radio>
+            <Radio value={StatusKey.TRUE}>배송완료</Radio>
+          </HStack>
+        </RadioGroup>
 
         <form onSubmit={handleSearchSubmit}>
-          <Stack direction="row" alignContent={'center'}>
-            <Heading mr="10" size={'sm'} alignContent={'center'}>
+          <HStack>
+            <Heading mr="5" size={'sm'} alignContent={'center'}>
               고객 이름 검색
             </Heading>
             <Input
@@ -57,10 +65,10 @@ function Filter() {
               width="auto"
             />
             <Button type="submit">검색</Button>
-          </Stack>
+          </HStack>
         </form>
-      </RadioGroup>
-    </Box>
+      </Box>
+    </VStack>
   );
 }
 

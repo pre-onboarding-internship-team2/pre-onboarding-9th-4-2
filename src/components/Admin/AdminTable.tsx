@@ -1,4 +1,5 @@
-import { Table, TableContainer } from '@chakra-ui/react';
+import { Box, Heading, Table, TableContainer, VStack } from '@chakra-ui/react';
+import { DAY, MONTH, YEAR } from '@utilstableFunc';
 import { useMemo } from 'react';
 
 import { IColumns } from '../../common/types';
@@ -44,12 +45,19 @@ function AdminTable() {
 
   return (
     <>
-      <TableContainer>
-        <Table>
-          <AdminTableHead columns={columns} />
-          <AdminTableBody />
-        </Table>
-      </TableContainer>
+      <VStack bgColor={'white'} borderRadius="lg" p="5" justifyContent={'left'}>
+        <Heading size={'md'} mb="5">
+          오늘의 거래건 ({[YEAR, MONTH, DAY].join('-')})
+        </Heading>
+        <Box overflowY="auto" maxHeight="600px">
+          <TableContainer minWidth={'900px'}>
+            <Table>
+              <AdminTableHead columns={columns} />
+              <AdminTableBody />
+            </Table>
+          </TableContainer>
+        </Box>
+      </VStack>
     </>
   );
 }

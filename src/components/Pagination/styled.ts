@@ -10,27 +10,27 @@ export const Nav = styled.nav`
 
 export const PageButton = styled.button`
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 8px;
   margin: 0;
-  background: black;
-  color: white;
+  background: white;
+  color: black;
   font-size: 1rem;
 
   &:hover {
-    background: tomato;
+    background: #bfc4c9;
     cursor: pointer;
     transform: translateY(-2px);
   }
 
   &[disabled] {
-    background: grey;
+    background: #bbc1c9;
     cursor: revert;
     transform: revert;
   }
 
   &[aria-current] {
-    background: darkgreen;
+    background: #9fa3a8;
     font-weight: bold;
     cursor: revert;
     transform: revert;
