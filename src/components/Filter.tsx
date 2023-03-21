@@ -1,4 +1,14 @@
-import { Box, Button, HStack, Heading, Input, Radio, RadioGroup, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  HStack,
+  Heading,
+  Input,
+  Radio,
+  RadioGroup,
+  VStack,
+  Divider,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -40,7 +50,7 @@ function Filter() {
       >
         <RadioGroup onChange={handleRadio} value={initRadioVal}>
           <HStack>
-            <Heading mr="10" size={'sm'}>
+            <Heading mr="5" size={'sm'}>
               주문 처리 상태
             </Heading>
             <Radio value={StatusKey.ALL} defaultChecked>
@@ -50,6 +60,7 @@ function Filter() {
             <Radio value={StatusKey.TRUE}>배송완료</Radio>
           </HStack>
         </RadioGroup>
+        <Divider orientation="vertical" />
 
         <form onSubmit={handleSearchSubmit}>
           <HStack>
@@ -60,8 +71,8 @@ function Filter() {
               value={searchName}
               onChange={handleSearchChange}
               variant="filled"
-              placeholder="고객 이름"
-              htmlSize={10}
+              placeholder="고객 이름을 검색하세요."
+              htmlSize={20}
               width="auto"
             />
             <Button type="submit">검색</Button>
