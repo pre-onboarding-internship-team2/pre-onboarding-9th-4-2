@@ -23,6 +23,7 @@ const ButtonGroup = () => {
               onClick={() => {
                 searchParams.set("page", String(i + 1));
                 setSearchParams(searchParams);
+                window.scrollTo(0, 0);
               }}
             >
               {i + 1}

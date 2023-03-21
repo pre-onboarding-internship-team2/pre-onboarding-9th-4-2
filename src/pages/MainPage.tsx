@@ -14,10 +14,11 @@ const MainPage = () => {
     refreshInterval: 5000,
   });
 
+  const notify = () =>
+    toast.success("데이터가 업데이트 되었습니다.", { autoClose: 1000 });
+
   useEffect(() => {
     if (isValidating) {
-      const notify = () =>
-        toast.success("데이터가 업데이트 되었습니다.", { autoClose: 1000 });
       notify();
     }
   }, [isValidating]);
