@@ -24,7 +24,7 @@ function AdminTableHead({ columns }: TableHeadProps) {
   };
 
   return (
-    <Thead>
+    <Thead backgroundColor={'gray.200'}>
       <Tr>
         {columns.map(({ header, accessor, sortable }) => {
           return (
