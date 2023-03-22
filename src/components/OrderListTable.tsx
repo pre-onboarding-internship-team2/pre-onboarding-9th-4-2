@@ -39,6 +39,7 @@ function OrderListTable({
         }}
       >
         {isLoading && <LoadingIndicator />}
+        {!data.length && <NoDataText />}
         {data.map((rowData) => (
           <OrderListRow
             key={rowData.id}
@@ -57,6 +58,14 @@ function LoadingIndicator() {
   return (
     <tr>
       <td>loading...</td>
+    </tr>
+  );
+}
+
+function NoDataText() {
+  return (
+    <tr>
+      <td>데이터가 없습니다</td>
     </tr>
   );
 }

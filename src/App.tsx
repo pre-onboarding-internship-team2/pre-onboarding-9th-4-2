@@ -1,7 +1,8 @@
 import "./App.style.css";
-import FilterSection from "./components/FilterSection";
+import { CustomerNameFilter } from "./components/CustomerNameFilter";
 import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import OrderListTable from "./components/OrderListTable";
+import { OrderStatusFilter } from "./components/OrderStatusFilter";
 import Pagination from "./components/Pagination";
 import useOrderDataQuery from "./hooks/useOrderData";
 import usePagination from "./hooks/usePagination";
@@ -28,7 +29,10 @@ function App() {
 
   return (
     <div className="App">
-      <FilterSection />
+      <div>
+        <OrderStatusFilter />
+        <CustomerNameFilter />
+      </div>
       <OrderListTable
         headerColumns={headerColumns}
         data={orderData}

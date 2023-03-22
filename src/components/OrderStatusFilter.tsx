@@ -2,18 +2,7 @@ import React from "react";
 import useQueryString from "../hooks/useQueryString";
 import { FilterParams } from "../types/QueryParams";
 
-function FilterSection() {
-  return (
-    <div>
-      <OrderStatusFilter />
-      <CustomerNameFilter />
-    </div>
-  );
-}
-
-export default FilterSection;
-
-function OrderStatusFilter() {
+export function OrderStatusFilter() {
   const { setQueryParams, deleteQueryParams } = useQueryString();
   const onChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const newValue = e.currentTarget.value;
@@ -33,8 +22,4 @@ function OrderStatusFilter() {
       </select>
     </label>
   );
-}
-
-function CustomerNameFilter() {
-  return <div>customer name</div>;
 }
