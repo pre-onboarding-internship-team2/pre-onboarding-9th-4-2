@@ -1,19 +1,29 @@
 import React from 'react';
 import * as S from '../styles/Table.styles';
 import { OrderDataResponse } from 'types/order.types';
-import useData from 'hooks/useData';
 import usePagination from 'hooks/usePagination';
 import useSorting from 'hooks/useSorting';
 import Pagination from 'components/Pagination';
 import { TiArrowUnsorted, TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/ti';
 
-export default function Table() {
-  let { todayData, isLoading, isError } = useData();
-  const { pages, goPrev, goNext, goPageNum, lastPage, currentPage, startIdx, lastIdx } = usePagination(todayData.length, 50, 5);
-  const { sort, orderList, timeFilter, handleIdSorting, handleTimeSorting } = useSorting(todayData);
+interface IProps {
+  sort: string | null;
+  orderList: OrderDataResponse[];
+  timeFilter: string;
+  handleIdSorting: () => void;
+  handleTimeSorting: () => void;
+}
 
-  if (isError) return <h3>ERROR!</h3>;
-  if (isLoading) return <h3>Loading...</h3>;
+export default function Table({
+  sort,
+  orderList,
+  timeFilter,
+  handleIdSorting,
+  handleTimeSorting,
+}: IProps) {
+  const { pages, goPrev, goNext, goPageNum, lastPage, currentPage, startIdx, lastIdx } =
+    usePagination(orderList.length, 50, 5);
+
   return (
     <>
       <S.TableContainer>
