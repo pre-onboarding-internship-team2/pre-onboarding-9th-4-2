@@ -1,11 +1,14 @@
-import { Table, TableContainer } from '@chakra-ui/react';
+import { Box, Heading, Table, TableContainer, VStack, Flex } from '@chakra-ui/react';
+import { DAY, MONTH, YEAR } from '@utilstableFunc';
 import { useMemo } from 'react';
 
 import { IColumns } from '../../common/types';
 import AdminTableBody from './AdminTableBody';
 import AdminTableHead from './AdminTableHead';
+import useData from '@hooks/useData';
 
 function AdminTable() {
+  const { tableData } = useData();
   const columns = useMemo<IColumns[]>(
     () => [
       {
@@ -44,12 +47,33 @@ function AdminTable() {
 
   return (
     <>
-      <TableContainer>
-        <Table>
-          <AdminTableHead columns={columns} />
-          <AdminTableBody />
-        </Table>
-      </TableContainer>
+      <VStack
+        bgColor={'white'}
+        borderRadius="lg"
+        p="5"
+        justifyContent={'left'}
+        backgroundColor="gray.100"
+      >
+        <Heading size={'md'} mb="5">
+          오늘의 거래건 ({[YEAR, MONTH, DAY].join('-')})
+        </Heading>
+        <Box overflowY="auto" maxHeight="600px">
+          <TableContainer minWidth={'900px'}>
+            <Table justifyContent={'center'}>
+              <AdminTableHead columns={columns} />
+              {tableData.length != 0 ? (
+                <AdminTableBody />
+              ) : (
+                <Flex justifyContent={'center'}>
+                  <Heading size="md" m="10">
+                    검색 결과가 없습니다.
+                  </Heading>
+                </Flex>
+              )}
+            </Table>
+          </TableContainer>
+        </Box>
+      </VStack>
     </>
   );
 }

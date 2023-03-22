@@ -3,9 +3,9 @@ import { useSearchParams } from 'react-router-dom';
 import { QueryStringKey } from '@common/order';
 import { IData } from '@common/types';
 
-const YEAR = '2023' as string;
-const MONTH = '03' as string;
-const DAY = '08' as string;
+export const YEAR = '2023' as string;
+export const MONTH = '03' as string;
+export const DAY = '08' as string;
 
 function TableFunc() {
   const [searchParams] = useSearchParams();
@@ -38,7 +38,10 @@ function TableFunc() {
   };
 
   const pagination = (originData: IData[]) => {
-    return originData.slice(offset, offset + limit);
+    if (offset) {
+      return originData.slice(offset, offset + limit);
+    }
+    return originData.slice(0, 50);
   };
 
   const filterByStatus = (originData: IData[]) => {

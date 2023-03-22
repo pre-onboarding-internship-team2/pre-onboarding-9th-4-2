@@ -8,7 +8,11 @@ import { IData } from '@common/types';
 import TableFunc from '@utils/tableFunc';
 
 function useSortableTable() {
-  const { isLoading, isError, data, error } = useQuery<IData[], Error>('switchone', fetchData);
+  const { isLoading, isError, data, error } = useQuery<IData[], Error>('switchone', fetchData, {
+    refetchInterval: 5000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
   const { isToday, pagination, filterByStatus, sortByField, searchByName } = TableFunc();
   const [searchParams] = useSearchParams();
 

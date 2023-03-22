@@ -1,5 +1,4 @@
 import { Flex, Skeleton, Stack } from '@chakra-ui/react';
-import { useState } from 'react';
 
 import { LIMIT } from '@common/order';
 
@@ -10,8 +9,6 @@ import Filter from '@components/Filter';
 import Paginaton from '@components/Pagination';
 
 function Admin() {
-  const [page, setPage] = useState(1);
-
   const { isLoading, isError, error } = useData();
 
   if (isLoading) {
@@ -36,11 +33,11 @@ function Admin() {
 
   return (
     <>
-      <Flex justifyContent={'center'}>
-        <Flex flexDir={'column'} w="800px">
+      <Flex justifyContent={'center'} height="900px">
+        <Flex flexDir={'column'}>
           <Filter />
           <AdminTable />
-          <Paginaton page={page} setPage={setPage}></Paginaton>
+          <Paginaton />
         </Flex>
       </Flex>
     </>
