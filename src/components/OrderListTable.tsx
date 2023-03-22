@@ -29,7 +29,15 @@ function OrderListTable({
 
       <tfoot>{pagination}</tfoot>
 
-      <tbody>
+      {/*  TODO 스타일 수정.. */}
+      <tbody
+        style={{
+          display: "block",
+          height: "700px",
+          overflow: "auto",
+          position: "relative",
+        }}
+      >
         {isLoading && <LoadingIndicator />}
         {data.map((rowData) => (
           <OrderListRow

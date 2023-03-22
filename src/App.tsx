@@ -2,11 +2,11 @@ import "./App.style.css";
 import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import OrderListTable from "./components/OrderListTable";
 import Pagination from "./components/Pagination";
-import useOrderData from "./hooks/useOrderData";
+import useOrderDataQuery from "./hooks/useOrderData";
 
 function App() {
   const { isLoading, orderData, paginationData, currentPage, onPageChange } =
-    useOrderData();
+    useOrderDataQuery();
   const headerColumns: HeaderColumn[] = [
     { field: "id", label: "주문번호", sortable: true },
     { field: "transaction_time", label: "거래시간", sortable: true },

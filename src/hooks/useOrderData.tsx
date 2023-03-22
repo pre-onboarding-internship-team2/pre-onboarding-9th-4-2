@@ -1,24 +1,17 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useSearchParams } from "react-router-dom";
-import {
-  getOrderListData,
-  GetOrderListDataProps,
-  TODAY,
-} from "../api/getOrderListData";
+import { getOrderListData, TODAY } from "../api/getOrderListData";
+import useQueryString from "./useQueryString";
 
-function useOrderData() {
+function useOrderDataQuery() {
   const displayItemAmountPerPage = 50;
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageFromQueryString = searchParams.get("page");
-  const currentPage = pageFromQueryString ? Number(pageFromQueryString) : 1;
-  // TODO ; sortBy, sortOrder searchParams에서 가져오고 저장하는 훅 만들기. HeaderSortDisplay에서도 사용함
-  const sortBy = searchParams.get("sortBy");
-  const sortOrder = searchParams.get("sortOrder");
+  const { page, sortBy, sortOrder, setQueryParams } = useQueryString();
+
+  const currentPage = page || 1;
 
   const onPageChange = (newPage: number) => {
-    setSearchParams((prev) => ({ ...prev, page: newPage }));
+    setQueryParams({ page: newPage });
   };
 
   // TODO : context로 분리하면 좋겠다
@@ -43,14 +36,11 @@ function useOrderData() {
     () =>
       getOrderListData({
         page: currentPage,
-        sortBy: sortBy
-          ? (sortBy as GetOrderListDataProps["sortBy"])
-          : undefined,
-        sortOrder: sortOrder
-          ? (sortOrder as GetOrderListDataProps["sortOrder"])
-          : undefined,
+        sortBy,
+        sortOrder,
       }),
     {
+      keepPreviousData: true,
       onSuccess: ({ minPage, maxPage, hasNextPage, hasPrevPage }) => {
         setPaginationData({
           minPage,
@@ -71,4 +61,4 @@ function useOrderData() {
   };
 }
 
-export default useOrderData;
+export default useOrderDataQuery;
