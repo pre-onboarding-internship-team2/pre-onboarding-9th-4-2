@@ -3,8 +3,10 @@ import {
   getOrderListData,
   GetOrderListDataRes,
   TODAY,
-} from "../api/getOrderListData";
-import useQueryString from "./useQueryString";
+} from "../../api/getOrderListData";
+import useQueryString from "../useQueryString";
+
+const REFETCH_INTERVAL = 5000;
 
 function useOrderDataQuery({
   onSuccess,
@@ -15,7 +17,7 @@ function useOrderDataQuery({
 
   const currentPage = params.page || 1;
 
-  const { data, isLoading } = useQuery(
+  const { data, status, isFetching } = useQuery(
     [
       "orderData",
       {
@@ -32,13 +34,15 @@ function useOrderDataQuery({
       }),
     {
       keepPreviousData: true,
+      refetchInterval: REFETCH_INTERVAL,
       onSuccess,
     }
   );
 
   return {
     orderData: data?.data || [],
-    isLoading,
+    status,
+    isFetching,
   };
 }
 

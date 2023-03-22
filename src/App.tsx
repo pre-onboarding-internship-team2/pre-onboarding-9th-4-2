@@ -4,8 +4,9 @@ import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import OrderListTable from "./components/OrderListTable";
 import { OrderStatusFilter } from "./components/OrderStatusFilter";
 import Pagination from "./components/Pagination";
-import useOrderDataQuery from "./hooks/useOrderData";
+import useOrderDataQuery from "./hooks/query/useOrderData";
 import usePagination from "./hooks/usePagination";
+import { BiRefresh } from "react-icons/bi";
 
 const headerColumns: HeaderColumn[] = [
   { field: "id", label: "주문번호", sortable: true },
@@ -23,7 +24,7 @@ const headerColumns: HeaderColumn[] = [
 function App() {
   const { paginationData, currentPage, onPageChange, updatePaginationData } =
     usePagination();
-  const { orderData, isLoading } = useOrderDataQuery({
+  const { orderData, status, isFetching } = useOrderDataQuery({
     onSuccess: updatePaginationData,
   });
 
@@ -33,21 +34,43 @@ function App() {
         <OrderStatusFilter />
         <CustomerNameFilter />
       </div>
-      <OrderListTable
-        headerColumns={headerColumns}
-        data={orderData}
-        isLoading={isLoading}
-        pagination={
-          <Pagination
-            {...paginationData}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
-            span={headerColumns.length}
-          />
-        }
-      />
+      <div style={{ position: "relative" }}>
+        <RefetchingIndicator isFetching={isFetching && status !== "loading"} />
+        <OrderListTable
+          headerColumns={headerColumns}
+          data={orderData}
+          isLoading={status === "loading"}
+          pagination={
+            <Pagination
+              {...paginationData}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+              span={headerColumns.length}
+            />
+          }
+        />
+      </div>
     </div>
   );
 }
 
 export default App;
+
+function RefetchingIndicator({ isFetching }: { isFetching: boolean }) {
+  return (
+    <p
+      style={{
+        margin: 0,
+        fontSize: "2rem",
+        position: "absolute",
+        left: 0,
+        top: 0,
+        color: "red",
+        opacity: isFetching ? 1 : 0,
+        transition: isFetching ? "none" : "all 1s ease",
+      }}
+    >
+      <BiRefresh />
+    </p>
+  );
+}

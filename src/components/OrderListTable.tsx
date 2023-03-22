@@ -38,15 +38,19 @@ function OrderListTable({
           position: "relative",
         }}
       >
-        {isLoading && <LoadingIndicator />}
-        {!data.length && <NoDataText />}
-        {data.map((rowData) => (
-          <OrderListRow
-            key={rowData.id}
-            rowData={rowData}
-            headerColumns={headerColumns}
-          ></OrderListRow>
-        ))}
+        {isLoading ? (
+          <LoadingIndicator />
+        ) : !data.length ? (
+          <NoDataText />
+        ) : (
+          data.map((rowData) => (
+            <OrderListRow
+              key={rowData.id}
+              rowData={rowData}
+              headerColumns={headerColumns}
+            ></OrderListRow>
+          ))
+        )}
       </tbody>
     </table>
   );
