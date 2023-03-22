@@ -3,10 +3,15 @@ import type { HeaderColumn } from "./components/OrderListHeaderColumn";
 import OrderListTable from "./components/OrderListTable";
 import Pagination from "./components/Pagination";
 import useOrderDataQuery from "./hooks/useOrderData";
+import usePagination from "./hooks/usePagination";
 
 function App() {
-  const { isLoading, orderData, paginationData, currentPage, onPageChange } =
-    useOrderDataQuery();
+  const { paginationData, currentPage, onPageChange, updatePaginationData } =
+    usePagination();
+  const { orderData, isLoading } = useOrderDataQuery({
+    onSuccess: updatePaginationData,
+  });
+
   const headerColumns: HeaderColumn[] = [
     { field: "id", label: "주문번호", sortable: true },
     { field: "transaction_time", label: "거래시간", sortable: true },

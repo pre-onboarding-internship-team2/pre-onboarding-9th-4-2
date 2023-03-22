@@ -36,6 +36,7 @@ function Pagination({
             <li key={key}>
               <button
                 onClick={() => onPageChange(page)}
+                aria-current={currentPage === page ? "page" : undefined}
                 className={currentPage === page ? "active" : undefined}
               >
                 {page}

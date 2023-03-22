@@ -1,26 +1,19 @@
-import { useState } from "react";
-import { useQuery } from "react-query";
-import { getOrderListData, TODAY } from "../api/getOrderListData";
+import { useQuery, UseQueryOptions } from "react-query";
+import {
+  getOrderListData,
+  GetOrderListDataRes,
+  TODAY,
+} from "../api/getOrderListData";
 import useQueryString from "./useQueryString";
 
-function useOrderDataQuery() {
+function useOrderDataQuery({
+  onSuccess,
+}: Pick<UseQueryOptions<GetOrderListDataRes>, "onSuccess">) {
   const displayItemAmountPerPage = 50;
 
-  const { page, sortBy, sortOrder, setQueryParams } = useQueryString();
+  const { page, sortBy, sortOrder } = useQueryString();
 
   const currentPage = page || 1;
-
-  const onPageChange = (newPage: number) => {
-    setQueryParams({ page: newPage });
-  };
-
-  // TODO : context로 분리하면 좋겠다
-  const [paginationData, setPaginationData] = useState({
-    minPage: 1,
-    maxPage: 1,
-    hasPrevPage: false,
-    hasNextPage: false,
-  });
 
   const { data, isLoading } = useQuery(
     [
@@ -41,23 +34,13 @@ function useOrderDataQuery() {
       }),
     {
       keepPreviousData: true,
-      onSuccess: ({ minPage, maxPage, hasNextPage, hasPrevPage }) => {
-        setPaginationData({
-          minPage,
-          maxPage,
-          hasNextPage,
-          hasPrevPage,
-        });
-      },
+      onSuccess,
     }
   );
 
   return {
     orderData: data?.data || [],
     isLoading,
-    paginationData,
-    currentPage,
-    onPageChange,
   };
 }
 
