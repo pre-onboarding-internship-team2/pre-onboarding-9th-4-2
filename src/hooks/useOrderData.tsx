@@ -11,26 +11,24 @@ function useOrderDataQuery({
 }: Pick<UseQueryOptions<GetOrderListDataRes>, "onSuccess">) {
   const displayItemAmountPerPage = 50;
 
-  const { page, sortBy, sortOrder } = useQueryString();
+  const { params } = useQueryString();
 
-  const currentPage = page || 1;
+  const currentPage = params.page || 1;
 
   const { data, isLoading } = useQuery(
     [
       "orderData",
       {
+        ...params,
         page: currentPage,
         date: TODAY,
         itemAmountPerPage: displayItemAmountPerPage,
-        sortBy,
-        sortOrder,
       },
     ],
     () =>
       getOrderListData({
+        ...params,
         page: currentPage,
-        sortBy,
-        sortOrder,
       }),
     {
       keepPreviousData: true,

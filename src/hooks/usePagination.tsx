@@ -3,7 +3,10 @@ import { GetOrderListDataRes } from "../api/getOrderListData";
 import useQueryString from "./useQueryString";
 
 function usePagination() {
-  const { page, setQueryParams } = useQueryString();
+  const {
+    params: { page },
+    setQueryParams,
+  } = useQueryString();
   const currentPage = page || 1;
 
   const onPageChange = (newPage: number) => {

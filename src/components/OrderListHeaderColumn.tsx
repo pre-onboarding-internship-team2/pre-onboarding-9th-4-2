@@ -1,7 +1,7 @@
 import { AiOutlineArrowDown } from "react-icons/ai";
-import type { OrderDataKey, SortOrder } from "../hooks/useQueryString";
 import useQueryString from "../hooks/useQueryString";
 import type { OrderData } from "../types/OrderData";
+import type { OrderDataKey, SortOrder } from "../types/QueryParams";
 
 export interface HeaderColumn<T extends OrderData = OrderData> {
   field: keyof T;
@@ -27,8 +27,11 @@ export function OrderListHeaderColumn(props: HeaderColumn) {
 
 function SortableOrderListHeaderColumn(props: HeaderColumn) {
   const { label, renderHeaderColumn, field } = props;
-  const { sortBy, sortOrder, setQueryParams, deleteQueryParams } =
-    useQueryString();
+  const {
+    params: { sortBy, sortOrder },
+    setQueryParams,
+    deleteQueryParams,
+  } = useQueryString();
 
   const isSortedByCurrentFieldInDescOrder =
     sortBy === field && sortOrder === "desc";

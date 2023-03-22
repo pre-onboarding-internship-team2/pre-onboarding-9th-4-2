@@ -18,6 +18,8 @@ export const getOrderListData = async ({
   page = 1,
   sortBy,
   sortOrder,
+  customerName,
+  orderStatus,
 }: OrderListQueryParams): Promise<GetOrderListDataRes> => {
   const res = await fetch("/mock_data.json");
   if (!res.ok) throw new Error("데이터를 불러오지 못했습니다");
@@ -27,7 +29,7 @@ export const getOrderListData = async ({
   const processor = new OrderDataProcessor(data);
   // filter -> sort -> pagination 순으로 실행해야 올바른 결과가 나옴
   const processResult = processor
-    .applyFilter({ date })
+    .applyFilter({ date, orderStatus, customerName })
     .applySort({ sortBy, sortOrder })
     .applyPagination({ page, itemAmountPerPage })
     .getProcessedResult();
