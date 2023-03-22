@@ -24,3 +24,7 @@
   background-color: var(--font-black-color);
   color: var(--font-white-color);
 }
+
+.order-list-table__header-column--sortable {
+  cursor: pointer;
+}
