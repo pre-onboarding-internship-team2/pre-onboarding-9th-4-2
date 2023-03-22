@@ -93,5 +93,18 @@ test('should show only searched name', async () => {
 
   // EXPECT
   // tableBody should contain all datas that customer_name field includes "ann"
-  // screen.debug(screen.getByLabelText('table-body'));
+  const tableBody = screen.getByLabelText('table-body');
+  const getByTextContent = (text: string) => {
+    // Passing function to `getByText`
+    return screen.getAllByText((content, element) => {
+      const hasText = (element: any) => element.textContent.toLowerCase().includes(text);
+      const elementHasText = hasText(element);
+      const childrenDontHaveText = Array.from(element?.children || []).every(
+        (child) => !hasText(child)
+      );
+      return elementHasText && childrenDontHaveText;
+    });
+  };
+  screen.debug(getByTextContent('ann'));
+  expect(getByTextContent('ann')).toBeTruthy();
 });
