@@ -1,14 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { OrderData } from "../types/OrderData";
-
-export type OrderDataKey = keyof OrderData;
-export type SortOrder = "desc" | "asc";
-
-export interface OrderListQueryParams {
-  page?: number;
-  sortBy?: OrderDataKey;
-  sortOrder?: SortOrder;
-}
+import { OrderListQueryParams } from "../types/QueryParams";
 
 type QueryParamKey = keyof OrderListQueryParams;
 

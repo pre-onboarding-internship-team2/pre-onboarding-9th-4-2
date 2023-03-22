@@ -1,6 +1,6 @@
 import type { OrderData } from "../types/OrderData";
 import { OrderListQueryParams } from "../types/QueryParams";
-import { formatDate } from "../utils/formatDate";
+import { OrderDataProcessor } from "../utils/orderDataProcessor";
 
 export interface GetOrderListDataRes {
   data: OrderData[];
@@ -21,27 +21,25 @@ export const getOrderListData = async ({
 }: OrderListQueryParams): Promise<GetOrderListDataRes> => {
   const res = await fetch("/mock_data.json");
   if (!res.ok) throw new Error("데이터를 불러오지 못했습니다");
+
   let data: OrderData[] = await res.json();
 
-  data = data.filter((item) => formatDate(item.transaction_time) === date);
-
-  if (sortBy && sortOrder) {
-    data.sort((a, b) => {
-      const [first, second] = sortOrder === "asc" ? [a, b] : [b, a];
-      return first[sortBy] > second[sortBy] ? 1 : -1;
-    });
-  }
+  const processor = new OrderDataProcessor(data);
+  // filter -> sort -> pagination 순으로 실행해야 올바른 결과가 나옴
+  const processResult = processor
+    .applyFilter({ date })
+    .applySort({ sortBy, sortOrder })
+    .applyPagination({ page, itemAmountPerPage })
+    .getProcessedResult();
 
   const minPage = 1;
-  const maxPage = Math.ceil(data.length / itemAmountPerPage) || 1;
+  const maxPage = processResult.maxPage || 1;
 
-  const result = {
-    data: data.slice((page - 1) * itemAmountPerPage, page * itemAmountPerPage),
+  return {
+    data: processResult.data,
     minPage,
     maxPage,
     hasPrevPage: page > minPage,
     hasNextPage: page < maxPage,
   };
-
-  return result;
 };
