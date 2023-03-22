@@ -17,6 +17,7 @@ function Paginaton() {
   return (
     <Nav>
       <PageButton
+        role="button"
         onClick={() => {
           const params = { offset: (page - 1) * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
@@ -30,18 +31,20 @@ function Paginaton() {
         .fill(0)
         .map((_, i) => (
           <PageButton
+            role="button"
             key={i + 1}
             onClick={() => {
               const params = { offset: i * LIMIT + '', limit: LIMIT + '' };
               setParams(params);
               window.scrollTo(0, 0);
             }}
-            aria-current={page - 1 === i ? 'page' : undefined}
+            aria-current={page - 1 === i ? 'true' : undefined}
           >
             {i + 1}
           </PageButton>
         ))}
       <PageButton
+        role={'button'}
         onClick={() => {
           const params = { offset: page * LIMIT + '', limit: LIMIT + '' };
           setParams(params);

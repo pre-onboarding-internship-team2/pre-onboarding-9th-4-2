@@ -15,21 +15,21 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["vitest/globals"],
     "baseUrl": ".",
     "paths": {
-      "@components": ["src/components"],
       "@components/*": ["src/components/*"],
       "@api*": ["src/api/*"],
       "@consts*": ["src/consts/*"],
       "@hooks*": ["src/hooks/*"],
-      "@pages*": ["src/pages/*"],
+      "@pages/*": ["src/pages/*"],
       "@common*": ["src/common/*"],
-      "@utils*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"]
     }
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["src"],
+  "include": ["src", "src/setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

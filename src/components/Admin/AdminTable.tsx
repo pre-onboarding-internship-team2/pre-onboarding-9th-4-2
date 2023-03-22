@@ -1,14 +1,13 @@
-import { Box, Heading, Table, TableContainer, VStack, Flex } from '@chakra-ui/react';
-import { DAY, MONTH, YEAR } from '@utilstableFunc';
+import { Box, Heading, Table, TableContainer, VStack } from '@chakra-ui/react';
 import { useMemo } from 'react';
+
+import { DAY, MONTH, YEAR } from '@utils/tableFunc';
 
 import { IColumns } from '../../common/types';
 import AdminTableBody from './AdminTableBody';
 import AdminTableHead from './AdminTableHead';
-import useData from '@hooks/useData';
 
 function AdminTable() {
-  const { tableData } = useData();
   const columns = useMemo<IColumns[]>(
     () => [
       {
@@ -59,17 +58,9 @@ function AdminTable() {
         </Heading>
         <Box overflowY="auto" maxHeight="600px">
           <TableContainer minWidth={'900px'}>
-            <Table justifyContent={'center'}>
+            <Table aria-label="admin-table">
               <AdminTableHead columns={columns} />
-              {tableData.length != 0 ? (
-                <AdminTableBody />
-              ) : (
-                <Flex justifyContent={'center'}>
-                  <Heading size="md" m="10">
-                    검색 결과가 없습니다.
-                  </Heading>
-                </Flex>
-              )}
+              <AdminTableBody />
             </Table>
           </TableContainer>
         </Box>
