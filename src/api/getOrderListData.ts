@@ -1,10 +1,10 @@
+import { OrderListQueryParams } from "../hooks/useQueryString";
 import type { OrderData } from "../types/OrderData";
 import { formatDate } from "../utils/formatDate";
 
-interface GetOrderListDataProps {
-  date: string;
-  itemAmountPerPage: number;
-  page: number;
+export interface GetOrderListDataProps extends OrderListQueryParams {
+  date?: string;
+  itemAmountPerPage?: number;
 }
 
 interface GetOrderListDataRes {
@@ -14,27 +14,34 @@ interface GetOrderListDataRes {
   hasPrevPage: boolean;
   hasNextPage: boolean;
 }
+
+export const TODAY = "2023-03-08";
+
 export const getOrderListData = async ({
-  date,
+  date = TODAY,
   itemAmountPerPage = 50,
-  page,
+  page = 1,
+  sortBy,
+  sortOrder,
 }: GetOrderListDataProps): Promise<GetOrderListDataRes> => {
   const res = await fetch("/mock_data.json");
   if (!res.ok) throw new Error("데이터를 불러오지 못했습니다");
-  const data: OrderData[] = await res.json();
+  let data: OrderData[] = await res.json();
 
-  const filteredData = data.filter(
-    (item) => formatDate(item.transaction_time) === date
-  );
+  data = data.filter((item) => formatDate(item.transaction_time) === date);
+
+  if (sortBy && sortOrder) {
+    data.sort((a, b) => {
+      const [first, second] = sortOrder === "asc" ? [a, b] : [b, a];
+      return first[sortBy] > second[sortBy] ? 1 : -1;
+    });
+  }
 
   const minPage = 1;
-  const maxPage = Math.ceil(filteredData.length / itemAmountPerPage) || 1;
+  const maxPage = Math.ceil(data.length / itemAmountPerPage) || 1;
 
   const result = {
-    data: filteredData.slice(
-      (page - 1) * itemAmountPerPage,
-      page * itemAmountPerPage
-    ),
+    data: data.slice((page - 1) * itemAmountPerPage, page * itemAmountPerPage),
     minPage,
     maxPage,
     hasPrevPage: page > minPage,

@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { getOrderListData } from "../api/getOrderListData";
-import type { OrderData } from "../types/OrderData";
+import { useQuery } from "react-query";
+import { getOrderListData, TODAY } from "../api/getOrderListData";
+import useQueryString from "./useQueryString";
 
-function useOrderData() {
-  const [orderData, setOrderData] = useState<OrderData[]>([]);
+function useOrderDataQuery() {
+  const displayItemAmountPerPage = 50;
+
+  const { page, sortBy, sortOrder, setQueryParams } = useQueryString();
+
+  const currentPage = page || 1;
+
+  const onPageChange = (newPage: number) => {
+    setQueryParams({ page: newPage });
+  };
 
   // TODO : context로 분리하면 좋겠다
   const [paginationData, setPaginationData] = useState({
@@ -13,30 +22,43 @@ function useOrderData() {
     hasNextPage: false,
   });
 
-  const displayItemAmountPerPage = 50;
-
-  const loadOrderData = async (page: number) => {
-    const TODAY = "2023-03-08";
-    const { data, minPage, maxPage, hasPrevPage, hasNextPage } =
-      await getOrderListData({
+  const { data, isLoading } = useQuery(
+    [
+      "orderData",
+      {
+        page: currentPage,
         date: TODAY,
         itemAmountPerPage: displayItemAmountPerPage,
-        page,
-      });
-    setOrderData(data);
-    setPaginationData({
-      minPage,
-      maxPage,
-      hasNextPage,
-      hasPrevPage,
-    });
-  };
+        sortBy,
+        sortOrder,
+      },
+    ],
+    () =>
+      getOrderListData({
+        page: currentPage,
+        sortBy,
+        sortOrder,
+      }),
+    {
+      keepPreviousData: true,
+      onSuccess: ({ minPage, maxPage, hasNextPage, hasPrevPage }) => {
+        setPaginationData({
+          minPage,
+          maxPage,
+          hasNextPage,
+          hasPrevPage,
+        });
+      },
+    }
+  );
 
   return {
-    loadOrderData,
-    orderData,
+    orderData: data?.data || [],
+    isLoading,
     paginationData,
+    currentPage,
+    onPageChange,
   };
 }
 
-export default useOrderData;
+export default useOrderDataQuery;
