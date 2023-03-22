@@ -58,7 +58,7 @@ function AdminTable() {
         </Heading>
         <Box overflowY="auto" maxHeight="600px">
           <TableContainer minWidth={'900px'}>
-            <Table aria-label="admin-table">
+            <Table aria-label="admin-table" variant={'striped'} colorScheme="blackAlpha">
               <AdminTableHead columns={columns} />
               <AdminTableBody />
             </Table>
