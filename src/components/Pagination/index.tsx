@@ -19,7 +19,7 @@ function Paginaton() {
       <PageButton
         role="button"
         onClick={() => {
-          const params = { offset: (page - 1) * LIMIT + '', limit: LIMIT + '' };
+          const params = { offset: (page - 2) * LIMIT + '', limit: LIMIT + '' };
           setParams(params);
           window.scrollTo(0, 0);
         }}
