@@ -1,9 +1,10 @@
+import classes from "./PaginatedContainer.module.css";
 import ShareButton from "../common/ShareButton";
 
 interface PaginatedContainerProps {
-  allPages: number;
-  searchParams: URLSearchParams;
-  setSearchParams: any;
+  allPages?: number;
+  searchParams?: URLSearchParams;
+  setSearchParams?: any;
 }
 
 const PaginatedContainer = ({
@@ -12,14 +13,17 @@ const PaginatedContainer = ({
   setSearchParams,
 }: PaginatedContainerProps) => {
   return (
-    <div className="button-container__paginated">
+    <div className={classes.container__paginated}>
       <ShareButton
         type="button"
-        disabled={searchParams.get("page") === "1" || !searchParams.get("page")}
+        dataTestId={"pagination-button__left"}
+        disabled={
+          searchParams?.get("page") === "1" || !searchParams?.get("page")
+        }
         onClick={() => {
-          searchParams.set(
+          searchParams?.set(
             "page",
-            String(Number(searchParams.get("page")) - 1),
+            String(Number(searchParams?.get("page")) - 1),
           );
           setSearchParams(searchParams);
         }}
@@ -29,15 +33,16 @@ const PaginatedContainer = ({
       {new Array(allPages).fill(0).map((_, index) => (
         <ShareButton
           type="button"
+          dataTestId={index + 1}
           key={index}
           style={{
             color:
-              Number(searchParams.get("page") || 1) === index + 1
+              Number(searchParams?.get("page") || 1) === index + 1
                 ? "red"
-                : "black",
+                : "#fff",
           }}
           onClick={() => {
-            searchParams.set("page", String(index + 1));
+            searchParams?.set("page", String(index + 1));
             setSearchParams(searchParams);
           }}
         >
@@ -46,9 +51,10 @@ const PaginatedContainer = ({
       ))}
       <ShareButton
         type="button"
-        disabled={Number(searchParams.get("page")) === allPages || !allPages}
+        dataTestId="pagination-button__right"
+        disabled={Number(searchParams?.get("page")) === allPages || !allPages}
         onClick={() => {
-          searchParams.set(
+          searchParams?.set(
             "page",
             String(Number(searchParams.get("page")) + 1),
           );

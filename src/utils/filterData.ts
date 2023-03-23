@@ -15,7 +15,6 @@ export const filterData = (
       if (queryTime) {
         return b.transaction_time.localeCompare(a.transaction_time);
       }
-
       return a.id - b.id;
     })
     .filter((item) => {

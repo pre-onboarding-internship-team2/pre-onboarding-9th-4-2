@@ -1,3 +1,4 @@
+import classes from "./StatusButtonContainer.module.css";
 import ShareButton from "../common/ShareButton";
 
 interface StatusButtonContainerProps {
@@ -25,7 +26,7 @@ const StatusButtonContainer = ({
     }
   };
   return (
-    <div>
+    <div className={classes.button_container}>
       <ShareButton
         name="status__true"
         type="button"
