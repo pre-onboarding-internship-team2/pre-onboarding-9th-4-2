@@ -1,0 +1,28 @@
+.container__paginated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container__paginated button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-weight: bold;
+  background-color: #4444;
+  border: 1px solid #4444;
+  transition: all 0.2s ease-out;
+}
+
+.container__paginated button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.container__paginated button[disabled] {
+  background-color: transparent;
+  color: #000;
+}
+
+.container__paginated button:not([disabled]) {
+  color: #fff;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./TableSearchForm.module.css";
 import ShareButton from "../common/ShareButton";
 
 interface TableSearchFormProps {
@@ -31,7 +32,7 @@ const TableSearchForm = ({
   };
 
   return (
-    <form onSubmit={searchSubmitHandler}>
+    <form className={classes.search_form} onSubmit={searchSubmitHandler}>
       <input
         type="text"
         name="search"
@@ -40,6 +41,13 @@ const TableSearchForm = ({
       <ShareButton type="submit">검색</ShareButton>
       <ShareButton type="button" onClick={resetSearchHandler}>
         검색 초기화
+      </ShareButton>
+      <ShareButton
+        type="button"
+        name="reset-all"
+        onClick={() => setSearchParams({})}
+      >
+        전체 리셋
       </ShareButton>
     </form>
   );

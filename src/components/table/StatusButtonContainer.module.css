@@ -1,0 +1,7 @@
+.button_container {
+  display: flex;
+}
+
+.button_container button {
+  margin: 0 5px;
+}

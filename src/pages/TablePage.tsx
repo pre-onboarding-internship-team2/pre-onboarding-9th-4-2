@@ -6,14 +6,14 @@ import TableHead from "../components/table/TableHead";
 import TableSearchForm from "../components/table/TableSearchForm";
 import PaginatedContainer from "../components/table/PaginatedContainer";
 import StatusButtonContainer from "../components/table/StatusButtonContainer";
-import ShareButton from "../components/common/ShareButton";
 import { filterData } from "../utils/filterData";
 import { orderHandler } from "../utils/orderHandler";
 import { getCustomers } from "../api/customer-api";
 import { CustomerType } from "../types/customer.types";
+import classes from "./TablePage.module.css";
 
 const TablePage = () => {
-  const { data, status, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["customers"],
     queryFn: getCustomers,
     select: (value) =>
@@ -60,29 +60,23 @@ const TablePage = () => {
     window.scrollTo(0, 0);
   }, [queryPage]);
 
-  if (status === "loading") return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
-  if (status === "error")
-    return <p>{JSON.stringify((error as Error).message)}</p>;
+  if (isError) return <p>{JSON.stringify((error as Error).message)}</p>;
 
   return (
     <main>
-      <TableSearchForm
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
-      <StatusButtonContainer
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
-      <ShareButton
-        type="button"
-        name="reset-all"
-        onClick={() => setSearchParams({})}
-      >
-        전체 리셋
-      </ShareButton>
-      <table>
+      <div className={classes.sort_wrapper}>
+        <TableSearchForm
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
+        <StatusButtonContainer
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
+      </div>
+      <table className={classes.table}>
         <TableHead onClick={sortOrderHandler} />
         <TableBody
           data={getFilteredData as CustomerType[]}
@@ -90,9 +84,6 @@ const TablePage = () => {
           limit={limit}
         />
       </table>
-      {getFilteredData.length === 0 && (
-        <h3 className="heading-data__none">No Data!</h3>
-      )}
       <PaginatedContainer
         searchParams={searchParams}
         setSearchParams={setSearchParams}
