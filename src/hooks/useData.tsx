@@ -21,7 +21,7 @@ function useSortableTable() {
   const [tableData, setTableData] = useState(todayData);
 
   useEffect(() => {
-    setTableData(sortByField(searchByName(filterByStatus(pagination(todayData)))));
+    setTableData(sortByField(pagination(filterByStatus(searchByName(todayData)))));
   }, [searchParams]);
 
   return { isLoading, isError, tableData, todayData, error };

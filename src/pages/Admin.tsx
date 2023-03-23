@@ -4,8 +4,8 @@ import { LIMIT } from '@common/order';
 
 import useData from '@hooks/useData';
 
+import Filter from '@components/Admin/AdminFilter';
 import AdminTable from '@components/Admin/AdminTable';
-import Filter from '@components/Filter';
 import Paginaton from '@components/Pagination';
 
 function Admin() {
@@ -13,7 +13,7 @@ function Admin() {
 
   if (isLoading) {
     return (
-      <Flex justifyContent={'center'}>
+      <Flex aria-label="loading" justifyContent={'center'}>
         <Flex flexDir={'column'} w="800px">
           <Stack>
             {Array(LIMIT)
@@ -33,7 +33,7 @@ function Admin() {
 
   return (
     <>
-      <Flex justifyContent={'center'} height="900px">
+      <Flex aria-label="admin-page" justifyContent={'center'} height="900px">
         <Flex flexDir={'column'}>
           <Filter />
           <AdminTable />

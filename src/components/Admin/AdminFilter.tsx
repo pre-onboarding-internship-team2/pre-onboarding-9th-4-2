@@ -27,6 +27,8 @@ function Filter() {
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    params.delete(QueryStringKey.OFFSET);
+    params.delete(QueryStringKey.LIMIT);
     params.set(QueryStringKey.NAME, searchName.toLocaleLowerCase());
     setParams(params);
   };
@@ -34,6 +36,7 @@ function Filter() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value == '') {
       params.delete(QueryStringKey.NAME);
+
       setParams(params);
     }
     setSearchName(e.target.value);
@@ -48,18 +51,24 @@ function Filter() {
         alignItems="center"
         justifyContent={'space-between'}
       >
-        <RadioGroup onChange={handleRadio} value={initRadioVal}>
-          <HStack>
-            <Heading mr="5" size={'sm'}>
-              주문 처리 상태
-            </Heading>
-            <Radio value={StatusKey.ALL} defaultChecked>
-              전체
-            </Radio>
-            <Radio value={StatusKey.FALSE}>상품준비중</Radio>
-            <Radio value={StatusKey.TRUE}>배송완료</Radio>
-          </HStack>
-        </RadioGroup>
+        <HStack>
+          <Heading mr="5" size={'sm'}>
+            주문 처리 상태
+          </Heading>
+          <RadioGroup role={'radiogroup'} onChange={handleRadio} value={initRadioVal}>
+            <HStack>
+              <Radio aria-label="radio-all" value={StatusKey.ALL} defaultChecked>
+                전체
+              </Radio>
+              <Radio aria-label="radio-false" value={StatusKey.FALSE}>
+                상품준비중
+              </Radio>
+              <Radio aria-label="radio-true" value={StatusKey.TRUE}>
+                배송완료
+              </Radio>
+            </HStack>
+          </RadioGroup>
+        </HStack>
         <Divider orientation="vertical" />
 
         <form onSubmit={handleSearchSubmit}>
@@ -68,6 +77,7 @@ function Filter() {
               고객 이름 검색
             </Heading>
             <Input
+              aria-label="search-name"
               value={searchName}
               onChange={handleSearchChange}
               variant="filled"
