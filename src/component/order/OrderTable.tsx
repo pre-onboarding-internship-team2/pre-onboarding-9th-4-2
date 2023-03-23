@@ -1,40 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useDescendingOrder } from '../../hooks/useDescendingOrder'
+import { useCreateObject } from '../../hooks/useCreateObject'
 
 import OrderDataListItem from './OrderDataListItem'
 
-import { data_slice } from '../../utils/pageDataUtil'
-import { data_date_descendingOrder } from '../../utils/pageDataUtil'
 import { T } from '../../styles/order/orderPage'
 
 import { RootState } from '../../store/store'
 
-import { SortedType } from './type'
+import { useSort } from '../../hooks/useSort'
+
+import { mockData } from '../../data/mock_data.json'
+import { useEffect } from 'react'
 
 const OrderTable = () => {
-    const [sortTransactionTime, setSortTransactionTime] = useState(false)
+    const [renderArr, setRenderArr] = useState<object[]>([...mockData])
+    const [isSort, handleSort] = useSort()
+    const [sortedArr, setKeyword] = useDescendingOrder()
+    const [sortedObj, setSortedArr] = useCreateObject()
 
     const num = useSelector((state: RootState) => state.pageNation.pageNumber)
 
-    const handleSortTransactionTime = () => {
-        setSortTransactionTime((prev) => !prev)
+    const handleDataSort = (keyword: string) => {
+        handleSort()
+        setKeyword(keyword)
     }
 
-    const sortedData: SortedType[] = data_date_descendingOrder()
+    useEffect(() => {
+        setSortedArr(sortedArr)
+    }, [sortedArr])
 
-    const productDataList: object[] = Object.values(
-        data_slice(sortTransactionTime ? sortedData : undefined).get(num)
-    )
+    const productDataList = [...Object.values(sortedObj.get(num))] // 여기를 state로 바꿔줘야함
 
     return (
         <T.table>
             <T.thead>
                 <T.tr>
                     <T.th>
-                        <T.button>주문번호</T.button>
+                        <T.button onClick={() => handleDataSort('id')}>주문번호</T.button>
                     </T.th>
                     <T.th>
-                        <T.button onClick={handleSortTransactionTime}>거래시간</T.button>
+                        <T.button onClick={() => handleDataSort('transaction_time')}>
+                            거래시간
+                        </T.button>
                     </T.th>
                     <T.th>
                         <T.button>주문처리상태</T.button>

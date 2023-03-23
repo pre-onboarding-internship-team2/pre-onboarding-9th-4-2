@@ -6,8 +6,8 @@ export const PageLayout = styled.div`
     justify-content: center;
     align-items: center;
     width: 70vw;
-    height: 100vh;
-    border: 2px solid #e1e2e3;
+    height: inherit;
+    border: 2px solid green;
     overflow: scroll;
-    padding-top: 70px;
+    padding-top: 80px;
 `

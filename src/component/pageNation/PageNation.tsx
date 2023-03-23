@@ -1,12 +1,13 @@
 import { PN } from '../../styles/order/pageNation'
-import { data_slice } from '../../utils/pageDataUtil'
+import { useCreateObject } from '../../hooks/useCreateObject'
 import { useDispatch } from 'react-redux'
 import { pageNumClick } from '../../store/slices/pageNationSlice'
 
 const PageNation = () => {
     const dispatch = useDispatch()
+    const [sortedObj, setSortedArr] = useCreateObject()
 
-    const pageNumList = [...data_slice().keys()]
+    const pageNumList = [...sortedObj.keys()]
 
     const handlePageNum = (pageNumber: number) => dispatch(pageNumClick(pageNumber))
 
