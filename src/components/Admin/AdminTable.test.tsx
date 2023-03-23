@@ -93,7 +93,6 @@ test('should show only searched name', async () => {
 
   // EXPECT
   // tableBody should contain all datas that customer_name field includes "ann"
-  const tableBody = screen.getByLabelText('table-body');
   const getByTextContent = (text: string) => {
     // Passing function to `getByText`
     return screen.getAllByText((content, element) => {

@@ -27,6 +27,8 @@ function Filter() {
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    params.delete(QueryStringKey.OFFSET);
+    params.delete(QueryStringKey.LIMIT);
     params.set(QueryStringKey.NAME, searchName.toLocaleLowerCase());
     setParams(params);
   };
@@ -34,6 +36,7 @@ function Filter() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value == '') {
       params.delete(QueryStringKey.NAME);
+
       setParams(params);
     }
     setSearchName(e.target.value);

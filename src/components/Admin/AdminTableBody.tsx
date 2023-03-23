@@ -1,4 +1,4 @@
-import { Badge, Flex, Heading, Tbody, Td, Tr } from '@chakra-ui/react';
+import { Badge, Tbody, Td, Tr } from '@chakra-ui/react';
 
 import useData from '@hooks/useData';
 
